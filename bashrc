@@ -20,7 +20,7 @@ case ${TERM} in
         PROMPT_COMMAND='history -a;echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
         export PS1=$PROMPT_FANCY
         ;;
-    screen)
+    screen*)
         PROMPT_COMMAND='history -a;echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
         export PS1=$PROMPT_FANCY
         ;;
