@@ -1,0 +1,14 @@
+# enable 256 color support?
+attrcolor b ".I"                                            # allow bold colors - necessary for some reason
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'    # tell screen how to set colors
+defbce on                                                   # erase background with current bg color 
+#term 'screen-256color'
+
+# miscellaneous settings
+altscreen on
+vbell off
+
+# status
+hardstatus off
+hardstatus alwayslastline
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m-%d %{W} %c %{g}]'
