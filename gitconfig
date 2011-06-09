@@ -1,0 +1,11 @@
+[user]
+    name = Will Rogers
+    email = wjrogers@gmail.com
+[core]
+    autocrlf = false
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = true
+
