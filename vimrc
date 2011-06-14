@@ -34,6 +34,9 @@ let python_slow_sync = 1
 " options for the supertab tab-completion plugin
 let g:SuperTabDefaultCompletionType = "context"
 
+" prevent netrw from saving history?
+let g:netrw_dirhistmax=0
+
 " set up the status bar the way I like
 set laststatus=2
 set statusline=
