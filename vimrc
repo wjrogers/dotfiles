@@ -25,7 +25,6 @@ syntax on
 filetype plugin indent on
 
 " set color scheme
-set t_Co=256
 colorscheme mustang
 
 " options for the enhanced python syntax file
