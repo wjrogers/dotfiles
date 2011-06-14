@@ -22,25 +22,20 @@ case ${TERM} in
         ;;
 esac
 
-# colors?
-echo -ne '\e]10;#DDDDDD\a'  # Black foreground
-echo -ne '\e]11;#121212\a'  # Light gray background
-echo -ne '\e]12;#00FF00\a'  # Green cursor
-
 # moar colors?
-echo -ne '\e]4;0;#353535\a'   # black
-echo -ne '\e]4;1;#AE4747\a'   # red
-echo -ne '\e]4;2;#556B2F\a'   # green
-echo -ne '\e]4;3;#DAA520\a'   # yellow
-echo -ne '\e]4;4;#6F99B4\a'   # blue
-echo -ne '\e]4;5;#8B7B8B\a'   # magenta
-echo -ne '\e]4;6;#A7A15E\a'   # cyan
-echo -ne '\e]4;7;#DDDDDD\a'   # white (light grey really)
-echo -ne '\e]4;8;#666666\a'   # bold black (i.e. dark grey)
-echo -ne '\e]4;9;#EE6363\a'   # bold red
-echo -ne '\e]4;10;#9ACD32\a'  # bold green
-echo -ne '\e]4;11;#FFC125\a'  # bold yellow
-echo -ne '\e]4;12;#7C96B0\a'  # bold blue
-echo -ne '\e]4;13;#D8BFD8\a'  # bold magenta
-echo -ne '\e]4;14;#F0E68C\a'  # bold cyan
-echo -ne '\e]4;15;#FFFFFF\a'  # bold white
+echo -ne '\e]P0353535\a'  # black
+echo -ne '\e]P1AE4747\a'  # red
+echo -ne '\e]P2556B2F\a'  # green
+echo -ne '\e]P3DAA520\a'  # yellow
+echo -ne '\e]P46F99B4\a'  # blue
+echo -ne '\e]P58B7B8B\a'  # magenta
+echo -ne '\e]P6A7A15E\a'  # cyan
+echo -ne '\e]P7DDDDDD\a'  # white (light grey really)
+echo -ne '\e]P8666666\a'  # bold black (i.e. dark grey)
+echo -ne '\e]P9EE6363\a'  # bold red
+echo -ne '\e]PA9ACD32\a'  # bold green
+echo -ne '\e]PBFFC125\a'  # bold yellow
+echo -ne '\e]PC7C96B0\a'  # bold blue
+echo -ne '\e]PDD8BFD8\a'  # bold magenta
+echo -ne '\e]PEF0E68C\a'  # bold cyan
+echo -ne '\e]PFFFFFFF\a'  # bold white
