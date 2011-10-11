@@ -25,7 +25,7 @@ syntax on
 filetype plugin indent on
 
 " set color scheme
-colorscheme mustang
+colorscheme molokai
 
 " options for the enhanced python syntax file
 let python_highlight_all = 1
