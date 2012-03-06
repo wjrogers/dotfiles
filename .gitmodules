@@ -1,0 +1,3 @@
+[submodule "vim/bundle/threesome"]
+	path = vim/bundle/threesome
+	url = https://github.com/sjl/threesome.vim.git
