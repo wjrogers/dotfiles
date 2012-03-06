@@ -27,6 +27,9 @@ filetype plugin indent on
 " set color scheme
 colorscheme molokai
 
+" load pathogen bundles
+call pathogen#infect()
+
 " options for the enhanced python syntax file
 let python_highlight_all = 1
 let python_slow_sync = 1
