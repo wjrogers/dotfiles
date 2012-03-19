@@ -12,6 +12,9 @@ alias ls='ls --color=auto'
 shopt -s checkwinsize
 shopt -s histappend
 
+# environment
+export EDITOR=vim
+
 # prompt
 PROMPT='\[\e[0m\]\n\[\e[1;32m\]\w \[\e[1;37m\]$ \[\e[0m\]'
 PROMPT_COMMAND='history -a;printf "\e]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\a"'
