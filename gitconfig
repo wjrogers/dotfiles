@@ -3,6 +3,7 @@
     email = wjrogers@gmail.com
 [core]
     autocrlf = false
+    whitespace = cr-at-eol
 [color]
     diff = auto
     status = auto
