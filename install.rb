@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+system "git submodule update --init --recursive"
+
 # from http://errtheblog.com/posts/89-huba-huba
 
 home = File.expand_path('~')
