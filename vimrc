@@ -15,6 +15,7 @@ set hidden
 set encoding=utf-8
 set splitright
 set nobackup
+set background=dark
 
 " allow modelines in files
 set modeline
@@ -24,11 +25,11 @@ set modelines=3
 syntax on
 filetype plugin indent on
 
-" set color scheme
-colorscheme molokai
-
 " load pathogen bundles
 call pathogen#infect()
+
+" set color scheme
+colorscheme solarized
 
 " options for the enhanced python syntax file
 let python_highlight_all = 1

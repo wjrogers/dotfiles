@@ -14,6 +14,7 @@ shopt -s histappend
 
 # environment
 export EDITOR=vim
+eval `dircolors ~/.dir_colors`
 
 # prompt
 PROMPT='\[\e[0m\]\n\[\e[1;32m\]\w \[\e[1;37m\]$ \[\e[0m\]'
@@ -25,20 +26,25 @@ case ${TERM} in
         ;;
 esac
 
-# moar colors?
-echo -ne '\e]P0353535\a'  # black
-echo -ne '\e]P1AE4747\a'  # red
-echo -ne '\e]P2556B2F\a'  # green
-echo -ne '\e]P3DAA520\a'  # yellow
-echo -ne '\e]P46F99B4\a'  # blue
-echo -ne '\e]P58B7B8B\a'  # magenta
-echo -ne '\e]P6A7A15E\a'  # cyan
-echo -ne '\e]P7DDDDDD\a'  # white (light grey really)
-echo -ne '\e]P8666666\a'  # bold black (i.e. dark grey)
-echo -ne '\e]P9EE6363\a'  # bold red
-echo -ne '\e]PA9ACD32\a'  # bold green
-echo -ne '\e]PBFFC125\a'  # bold yellow
-echo -ne '\e]PC7C96B0\a'  # bold blue
-echo -ne '\e]PDD8BFD8\a'  # bold magenta
-echo -ne '\e]PEF0E68C\a'  # bold cyan
-echo -ne '\e]PFFFFFFF\a'  # bold white
+# solarized dark
+echo -ne '\e]P0073642\a'  # black
+echo -ne '\e]P1dc322f\a'  # red
+echo -ne '\e]P2859900\a'  # green
+echo -ne '\e]P3b58900\a'  # yellow
+echo -ne '\e]P4268bd2\a'  # blue
+echo -ne '\e]P5d33682\a'  # magenta
+echo -ne '\e]P62aa198\a'  # cyan
+echo -ne '\e]P7eee8d5\a'  # white (light grey really)
+echo -ne '\e]P8002b36\a'  # bold black (i.e. dark grey)
+echo -ne '\e]P9cb4b16\a'  # bold red
+echo -ne '\e]PA586e75\a'  # bold green
+echo -ne '\e]PB657b83\a'  # bold yellow
+echo -ne '\e]PC839496\a'  # bold blue
+echo -ne '\e]PD6c71c4\a'  # bold magenta
+echo -ne '\e]PE93a1a1\a'  # bold cyan
+echo -ne '\e]PFfdf6e3\a'  # bold white
+
+# will this work in putty? probably not
+echo -ne '\e]10;#839496\a'  # foreground
+echo -ne '\e]11;#002b36\a'  # background
+echo -ne '\e]12;#859900\a'  # cursor
