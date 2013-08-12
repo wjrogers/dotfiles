@@ -1,3 +1,6 @@
+" load pathogen bundles
+call pathogen#infect()
+
 " general options
 set nocompatible
 set incsearch
@@ -24,9 +27,6 @@ set modelines=3
 " turn on syntax highlighting and plugin stuff
 syntax on
 filetype plugin indent on
-
-" load pathogen bundles
-call pathogen#infect()
 
 " set color scheme
 colorscheme solarized
