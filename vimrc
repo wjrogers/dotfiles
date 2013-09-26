@@ -70,7 +70,7 @@ end
 " choose a nicer looking font in Windows
 if has("win32")
     set directory=$TEMP
-    set guifont=Consolas:h11
+    set guifont=DejaVu\ Sans\ Mono:h10,Consolas:h11
 else
     set directory=/tmp
 end
