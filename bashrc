@@ -6,7 +6,7 @@ CYGWIN_BASHRC=/etc/defaults/etc/skel/.bashrc
 [ -e $CYGWIN_BASHRC ] && source $CYGWIN_BASHRC
 
 # aliases
-alias ls='ls --color=auto'
+alias ls='ls -lh --color=auto'
 
 # shell options
 shopt -s checkwinsize
