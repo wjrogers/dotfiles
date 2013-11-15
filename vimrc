@@ -40,8 +40,8 @@ let g:SuperTabDefaultCompletionType = "context"
 
 " options for the airline plugin
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '◀'
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
 
 " prevent netrw from saving history?
 let g:netrw_dirhistmax=0
