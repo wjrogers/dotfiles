@@ -15,7 +15,8 @@ set hidden
 set showmatch
 set splitright
 
-" be case sensitive only when asked
+" highlight searches, and be case sensitive only when asked
+set hlsearch
 set ignorecase
 set smartcase
 
