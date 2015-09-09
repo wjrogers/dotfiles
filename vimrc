@@ -12,6 +12,7 @@ set nobackup
 
 " behavior preferences
 set hidden
+set formatoptions-=ro
 set showmatch
 set splitright
 
