@@ -18,6 +18,7 @@ set splitright
 
 " highlight searches, and be case sensitive only when asked
 set hlsearch
+set incsearch
 set ignorecase
 set smartcase
 
