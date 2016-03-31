@@ -1,13 +1,6 @@
 # Check for an interactive session
 [ -z "$PS1" ] && return
 
-# source the cygwin-specific stuff I guess?
-CYGWIN_BASHRC=/etc/defaults/etc/skel/.bashrc
-[ -e $CYGWIN_BASHRC ] && source $CYGWIN_BASHRC
-
-# aliases
-alias ls='ls -lh --color=auto'
-
 # shell options
 shopt -s checkwinsize
 shopt -s histappend
@@ -48,3 +41,19 @@ echo -ne '\e]PFfdf6e3\a'  # bold white
 echo -ne '\e]10;#839496\a'  # foreground
 echo -ne '\e]11;#002b36\a'  # background
 echo -ne '\e]12;#859900\a'  # cursor
+
+# launch tmux if it is installed
+if command -v tmux > /dev/null && [[ ! $TERM =~ screen ]] && [ -z $TMUX ]; then
+    if tmux ls; then
+        exec tmux attach
+    else
+        exec tmux
+    fi
+fi
+
+# source the cygwin-specific stuff I guess?
+CYGWIN_BASHRC=/etc/defaults/etc/skel/.bashrc
+[ -e $CYGWIN_BASHRC ] && source $CYGWIN_BASHRC
+
+# aliases
+alias ls='ls -lh --color=auto'
