@@ -3,6 +3,7 @@
     email = wjrogers@gmail.com
 [core]
     autocrlf = false
+    safecrlf = false
     whitespace = cr-at-eol
 [color]
     diff = auto
@@ -13,4 +14,4 @@
 [push]
     default = simple
 [diff]
-	tool = vimdiff
+    tool = vimdiff
