@@ -5,6 +5,11 @@
 shopt -s checkwinsize
 shopt -s histappend
 
+# ssh-pageant
+if [ -x /usr/bin/ssh-pageant ]; then
+    eval $(/usr/bin/ssh-pageant -r -a "/tmp/.ssh-pageant-$USERNAME")
+fi
+
 # fix SSH agent forwarding on re-attaching to tmux
 if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
     ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock;
