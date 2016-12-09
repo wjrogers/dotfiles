@@ -46,3 +46,6 @@
 [submodule "vim/bundle/vim-yaml"]
 	path = vim/bundle/vim-yaml
 	url = https://github.com/stephpy/vim-yaml.git
+[submodule "vim/bundle/SAS-Vim"]
+	path = vim/bundle/SAS-Vim
+	url = https://github.com/EricGebhart/SAS-Vim.git
