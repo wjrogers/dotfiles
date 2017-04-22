@@ -27,7 +27,12 @@ set modeline
 set modelines=3
 
 " set color scheme
-colorscheme solarized
+if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+else
+    colorscheme solarized
+endif
 
 " options for the airline plugin
 let g:airline#extensions#tabline#enabled = 1
