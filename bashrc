@@ -12,12 +12,18 @@ fi
 
 # fix SSH agent forwarding on re-attaching to tmux
 if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
-    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock;
+    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
 fi
-export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock;
+
+# for local sessions, start ssh-agent if we don't seem to have one
+if [[ -z "$SSH_TTY" && ! -S ~/.ssh/ssh_auth_sock ]]; then
+    eval $(ssh-agent -s)
+    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+fi
 
 # environment
 export EDITOR=vim
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
 eval `dircolors ~/.dir_colors`
 
 # base16-shell
