@@ -42,6 +42,13 @@ let g:airline_right_sep = ''
 " prevent netrw from saving history?
 let g:netrw_dirhistmax=0
 
+" let console vim change the cursor shape?
+if !has("gui_running")
+    let &t_SI = "\<Esc>[6 q"
+    let &t_SR = "\<Esc>[4 q"
+    let &t_EI = "\<Esc>[2 q"
+end
+
 " set the default size for gui windows
 if &diff && has("win32")
     autocmd GUIEnter * simalt ~x
