@@ -1,29 +1,33 @@
 # Check for an interactive session
 [ -z "$PS1" ] && return
 
+# launch tmux
+if [ -z "$TMUX" ] && command -v tmux > /dev/null; then
+
+    # fix SSH agent forwarding on re-attaching
+    if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
+        ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+        export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+
+    # ssh-pageant
+    elif [ -x /usr/bin/ssh-pageant ]; then
+        eval $(/usr/bin/ssh-pageant -r -a "/tmp/.ssh-pageant-$USERNAME")
+    fi
+    
+    # wrap in ssh-agent if this is a local session
+    if [ -z "$SSH_TTY" ] && command -v ssh-agent > /dev/null; then
+        exec ssh-agent tmux new -A -s auto
+    else
+        exec tmux new -A -s auto
+    fi
+fi
+
 # shell options
 shopt -s checkwinsize
 shopt -s histappend
 
-# ssh-pageant
-if [ -x /usr/bin/ssh-pageant ]; then
-    eval $(/usr/bin/ssh-pageant -r -a "/tmp/.ssh-pageant-$USERNAME")
-fi
-
-# fix SSH agent forwarding on re-attaching to tmux
-if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
-    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
-fi
-
-# for local sessions, start ssh-agent if we don't seem to have one
-if [[ -z "$SSH_TTY" && ! -S ~/.ssh/ssh_auth_sock ]]; then
-    eval $(ssh-agent -s)
-    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
-fi
-
 # environment
 export EDITOR=vim
-export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
 eval `dircolors ~/.dir_colors`
 
 # base16-shell
@@ -39,15 +43,6 @@ case ${TERM} in
         PROMPT_COMMAND='history -a;echo -ne "\033]0;${PWD/$HOME/~}\007"'
         ;;
 esac
-
-# launch tmux if it is installed
-if command -v tmux > /dev/null && [[ ! $TERM =~ screen ]] && [ -z $TMUX ]; then
-    if tmux ls; then
-        exec tmux attach
-    else
-        exec tmux
-    fi
-fi
 
 # source the cygwin-specific stuff I guess?
 CYGWIN_BASHRC=/etc/defaults/etc/skel/.bashrc
