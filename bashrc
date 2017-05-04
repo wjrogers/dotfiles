@@ -16,7 +16,7 @@ if [ -z "$TMUX" ] && command -v tmux > /dev/null; then
     
     # wrap in ssh-agent if this is a local session
     if [ -z "$SSH_TTY" ] && command -v ssh-agent > /dev/null; then
-        exec ssh-agent tmux new -A -s auto
+        exec ssh-agent tmux new
     else
         exec tmux new -A -s auto
     fi
