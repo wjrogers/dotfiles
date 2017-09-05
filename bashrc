@@ -12,11 +12,15 @@ if [ -z "$TMUX" ] && command -v tmux > /dev/null; then
     # ssh-pageant
     elif [ -x /usr/bin/ssh-pageant ]; then
         eval $(/usr/bin/ssh-pageant -r -a "/tmp/.ssh-pageant-$USERNAME")
-    fi
     
     # wrap in ssh-agent if this is a local session
-    if [ -z "$SSH_TTY" ] && command -v ssh-agent > /dev/null; then
+    elif [ -z "$SSH_TTY" ] && command -v ssh-agent > /dev/null; then
         exec ssh-agent tmux new
+    fi
+
+    # don't auto-attach local sessions
+    if [ -z "$SSH_TTY" ]; then
+        exec tmux new
     else
         exec tmux new -A -s auto
     fi
