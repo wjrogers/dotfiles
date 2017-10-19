@@ -57,3 +57,6 @@ CYGWIN_BASHRC=/etc/defaults/etc/skel/.bashrc
 
 # aliases
 alias ls='ls -lh --color=auto'
+
+# source custom local configuration
+[ -e ~/.bashrc.local ] && source ~/.bashrc.local
