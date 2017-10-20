@@ -16,6 +16,7 @@ raise("#{key} is not readable") unless key.readable?
 raise("#{key_pub} is not readable") unless key_pub.readable?
 
 # configure SSH stupidly (WSL-only)
+mkdir home('.ssh')
 File.write home('.ssh/config'), <<~CONFIG
   AddKeysToAgent yes
 CONFIG
