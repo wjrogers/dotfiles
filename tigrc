@@ -1,3 +1,4 @@
+set diff-options = --histogram
 set ignore-case = yes
 set refresh-mode = auto
 bind main ! !git revert %(commit)
