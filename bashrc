@@ -58,5 +58,12 @@ CYGWIN_BASHRC=/etc/defaults/etc/skel/.bashrc
 # aliases
 alias ls='ls -lh --color=auto'
 
+# pyenv
+if command -v "$HOME/.pyenv/bin/pyenv" > /dev/null; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+fi
+
 # source custom local configuration
 [ -e ~/.bashrc.local ] && source ~/.bashrc.local
