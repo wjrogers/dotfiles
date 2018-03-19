@@ -16,6 +16,7 @@
 [diff]
     algorithm = histogram
     tool = vimdiff
+[merge]
+    tool = vimdiff
 [mergetool]
     keepBackup = false
-    tool = vimdiff
