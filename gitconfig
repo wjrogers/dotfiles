@@ -20,3 +20,5 @@
     tool = vimdiff
 [mergetool]
     keepBackup = false
+[credential]
+    helper = manager
