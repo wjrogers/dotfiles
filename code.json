@@ -2,5 +2,6 @@
     "editor.fontFamily": "'Fira Code', 'Deja Vu Sans Mono', Consolas",
     "editor.fontLigatures": false,
     "workbench.colorTheme": "Gruvbox Dark (Hard)",
-    "workbench.editor.enablePreview": false
+    "workbench.editor.enablePreview": false,
+    "git.autofetch": true
 }
