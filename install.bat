@@ -5,9 +5,11 @@ SETLOCAL
 SET BASE=%~dp0.
 
 REM Create directories we need below
+MKDIR "%APPDATA%\Code\User"
 MKDIR "%APPDATA%\mintty"
 
 REM Symlinks
+MKLINK "%APPDATA%\Code\User\settings.json" "%BASE%\code.json"
 MKLINK "%APPDATA%\mintty\config" "%BASE%\minttyrc"
 MKLINK "%USERPROFILE%\.gitconfig" "%BASE%\gitconfig"
 MKLINK "%USERPROFILE%\.tidyrc" "%BASE%\tidyrc"
