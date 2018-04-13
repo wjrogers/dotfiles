@@ -14,6 +14,7 @@ MKLINK "%APPDATA%\mintty\config" "%BASE%\minttyrc"
 MKLINK "%USERPROFILE%\.gitconfig" "%BASE%\gitconfig"
 MKLINK "%USERPROFILE%\.tidyrc" "%BASE%\tidyrc"
 MKLINK "%USERPROFILE%\.vimrc" "%BASE%\vimrc"
+MKLINK /D "%USERPROFILE%\.vim" "%BASE%\vim"
 MKLINK /D "%USERPROFILE%\vimfiles" "%BASE%\vim"
 
 REM Delete old environment variables
