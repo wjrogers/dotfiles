@@ -2,6 +2,10 @@
     "editor.fontFamily": "'Fira Code', 'Deja Vu Sans Mono', Consolas",
     "editor.fontLigatures": false,
     "git.autofetch": true,
+    "gitlens.advanced.messages": {
+        "suppressShowKeyBindingsNotice": true
+    },
+    "gitlens.historyExplorer.enabled": true,
     "terminal.integrated.scrollback": 9000,
     "workbench.colorTheme": "Gruvbox Dark (Hard)",
     "workbench.editor.enablePreview": false,
