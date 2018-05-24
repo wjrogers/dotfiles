@@ -8,6 +8,11 @@ def home(path)
   File.expand_path File.join('~', path)
 end
 
+# symlink link_name -> file, overwrite, never treat link_name as a directory
+def link(file, link_name)
+  system "ln -s -f -v -T #{File.expand_path file} #{link_name}"
+end
+
 # get path to SSH key
 key = ARGV[0] or raise 'path to RSA key required'
 key = Pathname.new(key)
@@ -30,9 +35,19 @@ system "git submodule update --init --recursive"
 
 # from http://errtheblog.com/posts/89-huba-huba
 Dir['*'].each do |file|
-  next if file =~ /base16/
-  next if file =~ /install/
-  target = home(".#{file}")
-  system "ln -s -f -v -T #{File.expand_path file} #{target}"
-end
+  case file
 
+  when /^install/
+  when "base16-shell"
+    ;
+
+  when "code.json"
+    dest = home('.config/Code/User')
+    mkpath dest
+    link(file, File.join(dest, "settings.json"))
+
+  else
+    link(file, home(".#{file}"))
+
+  end
+end
