@@ -1,7 +1,14 @@
 {
     "editor.fontFamily": "'Fira Code', 'Deja Vu Sans Mono', Consolas",
     "editor.fontLigatures": false,
+    "git.autofetch": true,
     "workbench.colorTheme": "Gruvbox Dark (Hard)",
     "workbench.editor.enablePreview": false,
-    "git.autofetch": true
+
+    "[javascript]": {
+        "editor.tabSize": 2
+    },
+    "[html]": {
+        "editor.tabSize": 2
+    }
 }
