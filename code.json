@@ -13,6 +13,9 @@
     "[javascript]": {
         "editor.tabSize": 2
     },
+    "[json]": {
+        "editor.tabSize": 2
+    },
     "[html]": {
         "editor.tabSize": 2
     }
