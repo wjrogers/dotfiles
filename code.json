@@ -18,5 +18,7 @@
     },
     "[html]": {
         "editor.tabSize": 2
-    }
+    },
+    "gitlens.gitExplorer.location": "scm",
+    "gitlens.historyExplorer.location": "scm"
 }
