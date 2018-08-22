@@ -5,7 +5,9 @@
     "gitlens.advanced.messages": {
         "suppressShowKeyBindingsNotice": true
     },
+    "gitlens.gitExplorer.location": "scm",
     "gitlens.historyExplorer.enabled": true,
+    "gitlens.historyExplorer.location": "scm",
     "terminal.integrated.scrollback": 9000,
     "workbench.colorTheme": "Gruvbox Dark (Hard)",
     "workbench.editor.enablePreview": false,
@@ -18,7 +20,5 @@
     },
     "[html]": {
         "editor.tabSize": 2
-    },
-    "gitlens.gitExplorer.location": "scm",
-    "gitlens.historyExplorer.location": "scm"
+    }
 }
