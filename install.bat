@@ -24,5 +24,4 @@ REG DELETE HKCU\Environment /V GITHUB_TOKEN /F
 REG DELETE HKCU\Environment /V TERM /F
 
 REM Configure environment
-SetX GIT_SSH "%USERPROFILE%\Dropbox\Applications\putty\plink.exe"
 SetX HTML_TIDY "%USERPROFILE%\.tidyrc"

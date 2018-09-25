@@ -39,6 +39,7 @@ Dir['*'].each do |file|
 
   when /^install/
   when "base16-shell"
+  when "README.md"
     ;
 
   when "code.json"
