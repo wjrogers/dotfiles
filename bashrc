@@ -9,6 +9,10 @@ if [ -z "$TMUX" ] && command -v tmux > /dev/null; then
         ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
         export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
 
+    # ssh-agent-wsl
+    elif command -v ~/.ssh/ssh-agent-wsl > /dev/null; then
+        eval $(~/.ssh/ssh-agent-wsl -r)
+
     # ssh-pageant
     elif [ -x /usr/bin/ssh-pageant ]; then
         eval $(/usr/bin/ssh-pageant -r -a "/tmp/.ssh-pageant-$USERNAME")
