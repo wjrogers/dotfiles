@@ -17,6 +17,10 @@ MKLINK "%USERPROFILE%\.vimrc" "%BASE%\vimrc"
 MKLINK /D "%USERPROFILE%\.vim" "%BASE%\vim"
 MKLINK /D "%USERPROFILE%\vimfiles" "%BASE%\vim"
 
+REM Symlinks to externally-stored files
+MKLINK "%APPDATA%\ConEmu.xml" "%USERPROFILE%\Dropbox\Applications\ConEmu.xml"
+MKLINK "%USERPROFILE%\.hyper.js" "%USERPROFILE%\Dropbox\.hyper.js"
+
 REM Delete old environment variables
 REG DELETE HKCU\Environment /V HOME /F
 REG DELETE HKCU\Environment /V GITHUB_USER /F
