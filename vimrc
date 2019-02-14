@@ -26,12 +26,15 @@ set smartcase
 set modeline
 set modelines=3
 
+" don't show the mode; we have a statusline for that
+set noshowmode
+
 " set color scheme
 if filereadable(expand("~/.vimrc_background"))
     let base16colorspace=256
     source ~/.vimrc_background
 else
-    colorscheme solarized
+    colorscheme palenight
 endif
 
 " options for the airline plugin
