@@ -36,14 +36,9 @@ shopt -s histappend
 
 # environment
 export EDITOR=vim
-eval `dircolors ~/.dir_colors`
 
 # environment we don't want to leak through from Windows
 unset GIT_SSH
-
-# base16-shell
-BASE16_SHELL=~/.dotfiles/base16-shell/
-[ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 # prompt
 PROMPT='\[\e[0m\]\n\[\e[1;32m\]\w \[\e[1;37m\]$ \[\e[0m\]'
