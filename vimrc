@@ -35,12 +35,7 @@ let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 
 " set color scheme
-if filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
-    source ~/.vimrc_background
-else
-    colorscheme palenight
-endif
+colorscheme gruvbox
 
 " options for the airline plugin
 let g:airline#extensions#tabline#enabled = 1

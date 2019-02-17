@@ -58,3 +58,6 @@
 [submodule "vim/bundle/palenight.vim"]
 	path = vim/bundle/palenight.vim
 	url = https://github.com/drewtempelmeyer/palenight.vim.git
+[submodule "vim/bundle/gruvbox"]
+	path = vim/bundle/gruvbox
+	url = https://github.com/vim-scripts/gruvbox.git
