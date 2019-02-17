@@ -29,6 +29,11 @@ set modelines=3
 " don't show the mode; we have a statusline for that
 set noshowmode
 
+" explicitly enable terminal true colors (helps with tmux)
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
+
 " set color scheme
 if filereadable(expand("~/.vimrc_background"))
     let base16colorspace=256
