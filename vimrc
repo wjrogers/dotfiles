@@ -1,3 +1,6 @@
+" explicitly set encoding to fix powerline glyphs in GVim
+set encoding=utf-8
+
 " manually load pathogen so we can source it from git
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 
