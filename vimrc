@@ -7,6 +7,7 @@ call pathogen#infect()
 " general options
 set nocompatible
 set background=dark
+set guifont=Hack:h10:cANSI:qDRAFT,Fira\ Code:h10,Consolas:h11
 set guioptions=rL
 set nobackup
 
@@ -38,9 +39,8 @@ set termguicolors
 colorscheme gruvbox
 
 " options for the airline plugin
+let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
 
 " prevent netrw from saving history?
 let g:netrw_dirhistmax=0
@@ -59,10 +59,9 @@ else
     autocmd GUIEnter * set lines=50 columns=120
 end
 
-" choose a nicer looking font in Windows; use system temp for swap
+" use system temp for swap
 if has("win32")
     set directory=$TEMP
-    set guifont=DejaVu\ Sans\ Mono:h10,Consolas:h11
 else
     set directory=/tmp
 end
