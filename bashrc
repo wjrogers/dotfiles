@@ -34,6 +34,9 @@ fi
 shopt -s checkwinsize
 shopt -s histappend
 
+# ls colors
+[ -f ~/.dir_colors ] && eval $(dircolors ~/.dir_colors)
+
 # environment
 export EDITOR=vim
 

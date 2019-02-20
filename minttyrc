@@ -1,7 +1,8 @@
-BoldAsFont=no
+BoldAsFont=yes
 Font=Hack
 FontHeight=10
 Columns=120
 Rows=60
 Term=xterm-256color
 CursorType=block
+ThemeFile=nord
