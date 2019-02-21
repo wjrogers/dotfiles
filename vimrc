@@ -1,6 +1,17 @@
 " explicitly set encoding to fix powerline glyphs in GVim
 set encoding=utf-8
 
+" configure tmuxline
+let g:airline#extensions#tmuxline#enabled = 0
+let g:tmuxline_theme = 'powerline'
+let g:tmuxline_status_justify = 'left'
+let g:tmuxline_preset = {
+    \'a': '#S',
+    \'win': ['#I', '#W'],
+    \'cwin': ['#I', '#W'],
+    \'y': '#(whoami)',
+    \'z': '#H'}
+
 " manually load pathogen so we can source it from git
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 
@@ -9,6 +20,7 @@ call pathogen#infect()
 
 " load vim-plug
 call plug#begin('~/.vim-plugged')
+Plug 'edkolev/tmuxline.vim'
 Plug 'sheerun/vim-polyglot'
 call plug#end()
 
