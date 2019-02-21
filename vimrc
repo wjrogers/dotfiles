@@ -7,6 +7,11 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 " load pathogen bundles
 call pathogen#infect()
 
+" load vim-plug
+call plug#begin('~/.vim-plugged')
+Plug 'sheerun/vim-polyglot'
+call plug#end()
+
 " general options
 set nocompatible
 set background=dark

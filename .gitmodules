@@ -28,27 +28,12 @@
 [submodule "vim/bundle/vim-unimpaired"]
 	path = vim/bundle/vim-unimpaired
 	url = git@github.com:tpope/vim-unimpaired.git
-[submodule "vim/bundle/vim-javascript"]
-	path = vim/bundle/vim-javascript
-	url = git@github.com:pangloss/vim-javascript.git
-[submodule "vim/bundle/puppet"]
-	path = vim/bundle/puppet
-	url = git@github.com:rodjek/vim-puppet.git
-[submodule "vim/bundle/vim-ruby"]
-	path = vim/bundle/vim-ruby
-	url = git@github.com:vim-ruby/vim-ruby.git
 [submodule "vim/bundle/vim-airline-themes"]
 	path = vim/bundle/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
 [submodule "vim/bundle/vim-jdaddy"]
 	path = vim/bundle/vim-jdaddy
 	url = https://github.com/tpope/vim-jdaddy.git
-[submodule "vim/bundle/vim-yaml"]
-	path = vim/bundle/vim-yaml
-	url = https://github.com/stephpy/vim-yaml.git
-[submodule "vim/bundle/vim-git"]
-	path = vim/bundle/vim-git
-	url = https://github.com/tpope/vim-git.git
 [submodule "vim/bundle/palenight.vim"]
 	path = vim/bundle/palenight.vim
 	url = https://github.com/drewtempelmeyer/palenight.vim.git
