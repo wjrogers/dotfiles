@@ -60,6 +60,9 @@ CYGWIN_BASHRC=/etc/defaults/etc/skel/.bashrc
 # aliases
 alias ls='ls -lh --color=auto'
 
+# fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 # pyenv
 if command -v "$HOME/.pyenv/bin/pyenv" > /dev/null; then
     export PYENV_ROOT="$HOME/.pyenv"

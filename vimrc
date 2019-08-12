@@ -22,6 +22,8 @@ call pathogen#infect()
 call plug#begin('~/.vim-plugged')
 Plug 'edkolev/tmuxline.vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'junegunn/fzf' " obtains only fzf.vim, must install binaries elsewhere
+Plug 'junegunn/fzf.vim'
 call plug#end()
 
 " general options
