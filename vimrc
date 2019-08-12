@@ -52,17 +52,14 @@ set noshowmode
 
 " tweak terminal configuration (these settings corrupt Windows consoles)
 if !has("gui_running") && !has("win32")
-    " explicitly enable terminal true colors (helps with tmux)
-    let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-
-    " let console vim change the cursor shape?
     let &t_SI = "\<Esc>[6 q"
     let &t_SR = "\<Esc>[4 q"
     let &t_EI = "\<Esc>[2 q"
 end
 
 " use gui colors in the terminal
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 
 " set color scheme
