@@ -44,9 +44,11 @@ export EDITOR=vim
 unset GIT_SSH
 
 # prompt
-PROMPT='\[\e[0m\]\n\[\e[1;32m\]\w \[\e[1;37m\]$ \[\e[0m\]'
+HISTCONTROL='ignorespace:erasedups'
+HISTFILESIZE=2000
+HISTIGNORE='ls:git status:tig*'
 PROMPT_COMMAND='history -a;printf "\e]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\a"'
-export PS1=$PROMPT
+PS1='\[\e[0m\]\n\[\e[1;32m\]\w \[\e[1;37m\]$ \[\e[0m\]'
 
 # aliases
 alias ls='ls -lh --color=auto'
