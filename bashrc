@@ -51,7 +51,7 @@ PROMPT_COMMAND='history -a;printf "\e]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\
 PS1='\[\e[0m\]\n\[\e[1;32m\]\w \[\e[1;37m\]$ \[\e[0m\]'
 
 # aliases
-alias ls='ls -lh --color=auto'
+alias ls='exa -l'
 
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
