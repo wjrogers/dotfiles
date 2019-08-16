@@ -54,6 +54,13 @@ alias ls='ls -lh --color=auto'
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# z.lua
+Z_LUA_BIN=lua5.3
+Z_LUA_PATH=~/.local/bin/z.lua
+if command -v $Z_LUA_BIN > /dev/null && [ -f $Z_LUA_PATH ]; then
+    eval "$($Z_LUA_BIN $Z_LUA_PATH --init bash enhanced once fzf)"
+fi
+
 # pyenv
 if command -v "$HOME/.pyenv/bin/pyenv" > /dev/null; then
     export PYENV_ROOT="$HOME/.pyenv"
