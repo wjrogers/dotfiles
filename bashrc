@@ -39,6 +39,10 @@ shopt -s histappend
 
 # environment
 export EDITOR=vim
+export FZF_DEFAULT_COMMAND='fd --type file --color=always --follow --hidden --exclude .git'
+export FZF_DEFAULT_OPTS='--ansi --height 40% --layout=reverse'
+export FZF_ALT_C_COMMAND='fd --type d --color=always --follow --hidden --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # environment we don't want to leak through from Windows
 unset GIT_SSH
@@ -49,9 +53,6 @@ HISTFILESIZE=2000
 HISTIGNORE='ls:git status:tig*'
 PROMPT_COMMAND='history -a;printf "\e]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\a"'
 PS1='\[\e[0m\]\n\[\e[1;32m\]\w \[\e[1;37m\]$ \[\e[0m\]'
-
-# aliases
-alias ls='exa -l'
 
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
@@ -85,6 +86,12 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# aliases
+alias ls='exa -l'
+alias z='_zlua -I'
+alias zc='_zlua -I -c'
+alias zh='_zlua -I -t .'
 
 # source custom local configuration
 [ -e ~/.bashrc.local ] && source ~/.bashrc.local
