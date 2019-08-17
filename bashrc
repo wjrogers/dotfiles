@@ -89,6 +89,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # aliases
 alias ls='exa -l'
+alias rg='rg -S'
 alias z='_zlua -I'
 alias zc='_zlua -I -c'
 alias zh='_zlua -I -t .'
