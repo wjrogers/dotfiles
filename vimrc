@@ -1,6 +1,9 @@
 " explicitly set encoding to fix powerline glyphs in GVim
 set encoding=utf-8
 
+" set leader to space
+let mapleader = ' '
+
 " configure tmuxline
 let g:airline#extensions#tmuxline#enabled = 0
 let g:tmuxline_theme = 'powerline'
@@ -73,6 +76,30 @@ let g:airline#extensions#tabline#enabled = 1
 
 " prevent netrw from saving history?
 let g:netrw_dirhistmax=0
+
+" customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" fzf mappings
+nmap <C-p> :Files<CR>
+nmap <Leader>b :Buffers<CR>
+nmap <Leader>f :Files<CR>
+nmap <Leader>h :Commits<CR>
+nmap <Leader>i :Lines<CR>
+nmap <Leader>t :Tags<CR>
 
 " set the default size for gui windows
 if &diff && has("win32")
