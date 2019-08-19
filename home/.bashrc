@@ -54,6 +54,17 @@ HISTIGNORE='ls:git status:tig*'
 PROMPT_COMMAND='history -a;printf "\e]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\a"'
 PS1='\[\e[0m\]\n\[\e[1;32m\]\w \[\e[1;37m\]$ \[\e[0m\]'
 
+# homebrew
+BREW='/home/linuxbrew/.linuxbrew/bin/brew'
+if command -v $BREW > /dev/null; then
+  eval $($BREW shellenv)
+
+  # completions
+  for COMPLETION in "$($BREW --prefix)/etc/bash_completion.d/"*; do
+    [[ -r "$COMPLETION" ]] && source "$COMPLETION"
+  done
+fi
+
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
