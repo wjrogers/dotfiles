@@ -15,18 +15,21 @@ let g:tmuxline_preset = {
     \'y': '#(whoami)',
     \'z': '#H'}
 
-" manually load pathogen so we can source it from git
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-
-" load pathogen bundles
-call pathogen#infect()
-
 " load vim-plug
 call plug#begin('~/.vim-plugged')
 Plug 'edkolev/tmuxline.vim'
-Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf' " obtains only fzf.vim, must install binaries elsewhere
 Plug 'junegunn/fzf.vim'
+Plug 'morhetz/gruvbox'
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-syntastic/syntastic'
 call plug#end()
 
 " general options
