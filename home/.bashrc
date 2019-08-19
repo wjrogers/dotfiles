@@ -16,7 +16,7 @@ if [ -z "$TMUX" ] && command -v tmux > /dev/null; then
     # ssh-pageant
     elif [ -x /usr/bin/ssh-pageant ]; then
         eval $(/usr/bin/ssh-pageant -r -a "/tmp/.ssh-pageant-$USERNAME")
-    
+
     # wrap in ssh-agent if this is a local session
     elif [ -z "$SSH_TTY" ] && command -v ssh-agent > /dev/null; then
         exec ssh-agent tmux new
@@ -81,7 +81,7 @@ __fzf_history__() (
 
 # z.lua
 Z_LUA_BIN=lua5.3
-Z_LUA_PATH=~/.local/bin/z.lua
+Z_LUA_PATH=~/.dotfiles/z.lua
 if command -v $Z_LUA_BIN > /dev/null && [ -f $Z_LUA_PATH ]; then
     eval "$($Z_LUA_BIN $Z_LUA_PATH --init bash enhanced once fzf)"
 fi

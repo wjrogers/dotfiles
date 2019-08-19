@@ -13,7 +13,7 @@ Remove-PSReadlineKeyHandler 'Ctrl+r'
 Import-Module PSFzf
 
 # z.lua
-$ZLuaPath = Join-Path $PSScriptRoot 'z.lua'
+$ZLuaPath = "$HOME/dotfiles/z.lua"
 Invoke-Expression ($(lua $ZLuaPath --init powershell) -join "`n")
 
 # z.lua -- customize and replace the default alias
