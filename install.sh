@@ -16,6 +16,8 @@ sudo apt install -y build-essential curl file git stow
 # homebrew
 if ! command -v brew > /dev/null; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+  test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+  test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 fi
 
 # homebrew packages

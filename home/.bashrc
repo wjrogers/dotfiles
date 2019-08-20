@@ -1,6 +1,22 @@
 # Check for an interactive session
 [ -z "$PS1" ] && return
 
+# shell options
+shopt -s checkwinsize
+shopt -s histappend
+
+# homebrew -- source once before starting tmux
+test -d ~/.linuxbrew && BREW='~/.linuxbrew/bin/brew'
+test -d /home/linuxbrew/.linuxbrew && BREW='/home/linuxbrew/.linuxbrew/bin/brew'
+if command -v $BREW > /dev/null && ! command -v brew > /dev/null; then
+  eval $($BREW shellenv)
+
+  # completions
+  for COMPLETION in "$($BREW --prefix)/etc/bash_completion.d/"*; do
+    [[ -r "$COMPLETION" ]] && source "$COMPLETION"
+  done
+fi
+
 # launch tmux
 if [ -z "$TMUX" ] && command -v tmux > /dev/null; then
 
@@ -30,10 +46,6 @@ if [ -z "$TMUX" ] && command -v tmux > /dev/null; then
     fi
 fi
 
-# shell options
-shopt -s checkwinsize
-shopt -s histappend
-
 # ls colors
 [ -f ~/.dir_colors ] && eval $(dircolors ~/.dir_colors)
 
@@ -53,17 +65,6 @@ HISTFILESIZE=2000
 HISTIGNORE='ls:git status:tig*'
 PROMPT_COMMAND='history -a;printf "\e]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\a"'
 PS1='\[\e[0m\]\n\[\e[1;32m\]\w \[\e[1;37m\]$ \[\e[0m\]'
-
-# homebrew
-BREW='/home/linuxbrew/.linuxbrew/bin/brew'
-if command -v $BREW > /dev/null; then
-  eval $($BREW shellenv)
-
-  # completions
-  for COMPLETION in "$($BREW --prefix)/etc/bash_completion.d/"*; do
-    [[ -r "$COMPLETION" ]] && source "$COMPLETION"
-  done
-fi
 
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
