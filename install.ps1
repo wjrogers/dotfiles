@@ -1,17 +1,13 @@
-$Base = Resolve-Path "$HOME/dotfiles"
+$Base = "$HOME\dotfiles"
 
 Write-Host "Installing dotfiles to $Base ..."
 Write-Host
 
 # Bootstrap scoop
 if (-not (Get-Command scoop)) {
-    Invoke-Expression (Invoke-WebRequest 'https://get.scoop.sh')
+    Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+    & scoop install git pwsh
 }
-$ScoopApps = Get-Content "$Base/Scoopfile"
-& scoop bucket add extras
-& scoop bucket add java
-& scoop bucket add versions
-& scoop install @ScoopApps
 
 # Bootstrap this repository
 if (-not (Test-Path $Base)) {
@@ -21,13 +17,34 @@ if (-not (Test-Path $Base)) {
 }
 
 # Configure OpenSSH Agent
-Start-Process powershell.exe -Verb RunAs -ArgumentList @"
+$AgentService = Get-Service ssh-agent
+if ($AgentService -and $AgentService.StartType -ne 'Automatic') {
+    Start-Process powershell.exe -Verb RunAs -Wait -ArgumentList @"
 -Command & {
     Set-Service ssh-agent -StartupType Automatic
     Start-Service ssh-agent -PassThru | Format-List *
     pause
 }
 "@
+}
+$AgentService = $null
+
+# Switch to PowerShell Core
+if ($PSEdition -ne 'Core') {
+    Write-Host "Bootstrapping complete."
+    Write-Host
+    Write-Host "Run the remainder of this script in PowerShell Core:"
+    Write-Host "  $(scoop which pwsh) $PSCommandPath"
+    Write-Host
+    exit
+}
+
+# Install scoop apps
+$ScoopApps = Get-Content "$Base/Scoopfile"
+& scoop bucket add extras
+& scoop bucket add java
+& scoop bucket add versions
+& scoop install @ScoopApps
 
 # Symlinks
 $Links = @{
@@ -43,6 +60,11 @@ $Links = @{
 foreach ($Source in $Links.Keys) {
     $Target = Resolve-Path $Links[$Source]
     New-Item -Force -ItemType SymbolicLink -Path "$Source" -Target "$Target"
+
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Try enabling Developer Mode in Windows Settings."
+        exit 1
+    }
 }
 
 # Environment (nulls delete old stuff if it's still around)
@@ -61,4 +83,4 @@ foreach ($Key in $Environment.Keys) {
 }
 
 # Modules
-Install-Module PSFzf
+Install-Module -Scope CurrentUser PSFzf
