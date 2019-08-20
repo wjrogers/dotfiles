@@ -15,8 +15,13 @@ let g:tmuxline_preset = {
     \'y': '#(whoami)',
     \'z': '#H'}
 
+" configure ale
+let g:ale_completion_enabled = 1
+set omnifunc=ale#completion#OmniFunc
+
 " load vim-plug
 call plug#begin('~/.vim-plugged')
+Plug 'dense-analysis/ale'
 Plug 'edkolev/tmuxline.vim'
 Plug 'junegunn/fzf' " obtains only fzf.vim, must install binaries elsewhere
 Plug 'junegunn/fzf.vim'
@@ -29,7 +34,6 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-syntastic/syntastic'
 call plug#end()
 
 " general options
