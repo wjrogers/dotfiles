@@ -81,10 +81,9 @@ __fzf_history__() (
 )
 
 # z.lua
-Z_LUA_BIN=lua5.3
 Z_LUA_PATH=~/.dotfiles/z.lua
-if command -v $Z_LUA_BIN > /dev/null && [ -f $Z_LUA_PATH ]; then
-    eval "$($Z_LUA_BIN $Z_LUA_PATH --init bash enhanced once fzf)"
+if command -v lua > /dev/null && [ -f $Z_LUA_PATH ]; then
+    eval "$(lua $Z_LUA_PATH --init bash enhanced once fzf)"
 fi
 
 # pyenv
