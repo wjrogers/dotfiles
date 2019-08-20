@@ -36,7 +36,7 @@ if ($PSEdition -ne 'Core') {
     Write-Host "Run the remainder of this script in PowerShell Core:"
     Write-Host "  $(scoop which pwsh) $PSCommandPath"
     Write-Host
-    exit
+    return
 }
 
 # Install scoop apps
@@ -62,8 +62,7 @@ foreach ($Source in $Links.Keys) {
     New-Item -Force -ItemType SymbolicLink -Path "$Source" -Target "$Target"
 
     if ($LASTEXITCODE -ne 0) {
-        Write-Error "Try enabling Developer Mode in Windows Settings."
-        exit 1
+        throw "Try enabling Developer Mode in Windows Settings."
     }
 }
 
