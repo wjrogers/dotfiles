@@ -19,12 +19,16 @@ let g:tmuxline_preset = {
 let g:ale_completion_enabled = 1
 set omnifunc=ale#completion#OmniFunc
 
+" configure gutentags
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+
 " load vim-plug
 call plug#begin('~/.vim-plugged')
 Plug 'dense-analysis/ale'
 Plug 'edkolev/tmuxline.vim'
 Plug 'junegunn/fzf' " obtains only fzf.vim, must install binaries elsewhere
 Plug 'junegunn/fzf.vim'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'morhetz/gruvbox'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
