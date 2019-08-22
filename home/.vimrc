@@ -112,6 +112,10 @@ nmap <Leader>h :Commits<CR>
 nmap <Leader>i :Lines<CR>
 nmap <Leader>t :Tags<CR>
 
+" fzf mappings - visual mode
+vnoremap <Leader>g y:Rg <C-r>"<CR>
+vnoremap <Leader>G y:Rg <C-r>"
+
 " set the default size for gui windows
 if &diff && has("win32")
     autocmd GUIEnter * simalt ~x
