@@ -24,6 +24,7 @@ let g:gutentags_cache_dir = expand('~/.cache/tags')
 
 " load vim-plug
 call plug#begin('~/.vim-plugged')
+Plug 'arcticicestudio/nord-vim'
 Plug 'dense-analysis/ale'
 Plug 'edkolev/tmuxline.vim'
 Plug 'junegunn/fzf' " obtains only fzf.vim, must install binaries elsewhere
@@ -86,7 +87,7 @@ let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 
 " set color scheme
-colorscheme gruvbox
+colorscheme nord
 
 " options for the airline plugin
 let g:airline_powerline_fonts = 1
