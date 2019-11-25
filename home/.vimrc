@@ -66,6 +66,12 @@ set modelines=3
 " don't show the mode; we have a statusline for that
 set noshowmode
 
+" better linting experience
+set updatetime=300
+
+" don't show useless completion messages
+set shortmess+=c
+
 " tweak terminal configuration (these settings corrupt Windows consoles)
 if !has("gui_running") && !has("win32")
     let &t_SI = "\<Esc>[6 q"
