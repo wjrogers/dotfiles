@@ -118,6 +118,7 @@ nmap <Leader>b :Buffers<CR>
 nmap <Leader>f :Files<CR>
 nmap <Leader>h :Commits<CR>
 nmap <Leader>i :Lines<CR>
+nmap <Leader>r :History<CR>
 nmap <Leader>t :Tags<CR>
 
 " fzf mappings - visual mode
