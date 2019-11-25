@@ -56,6 +56,7 @@ $Links = @{
     "$HOME/vimfiles" = "$Base/home/.vim"
     "$Env:APPDATA/ConEmu.xml" = "$HOME/Dropbox/Applications/ConEmu.xml"
     "$HOME/.hyper.js" = "$HOME/Dropbox/.hyper.js"
+    "$Env:LOCALAPPDATA/nvim" = "$Base/home/.config/nvim"
 }
 foreach ($Source in $Links.Keys) {
     $Target = Resolve-Path $Links[$Source]
