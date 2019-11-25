@@ -43,8 +43,9 @@ call plug#end()
 " general options
 set nocompatible
 set background=dark
-set guifont=Hack:h10:cANSI:qDRAFT,Fira\ Code:h10,Consolas:h11
-set guioptions=rL
+set guifont=Hack:h10,Fira\ Code:h10,Consolas:h11
+set guioptions-=mrLtT
+set guioptions+=!
 set nobackup
 
 " behavior preferences
