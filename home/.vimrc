@@ -44,9 +44,6 @@ call plug#end()
 " general options
 set nocompatible
 set background=dark
-set guifont=Hack:h10,Fira\ Code:h10,Consolas:h11
-set guioptions-=mrLtT
-set guioptions+=!
 set nobackup
 
 " behavior preferences
@@ -73,6 +70,13 @@ set updatetime=300
 
 " don't show useless completion messages
 set shortmess+=c
+
+" gui options
+set guioptions-=mrLtT
+set guioptions+=!
+if !has("nvim")
+  set guifont=Hack:h10,Fira\ Code:h10,Consolas:h11
+end
 
 " tweak terminal configuration (these settings corrupt Windows consoles)
 if !has("gui_running") && !has("win32")
