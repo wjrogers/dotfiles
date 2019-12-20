@@ -31,6 +31,7 @@ Plug 'junegunn/fzf' " obtains only fzf.vim, must install binaries elsewhere
 Plug 'junegunn/fzf.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'morhetz/gruvbox'
+Plug 'samoshkin/vim-mergetool'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
@@ -96,6 +97,10 @@ colorscheme nord
 " options for the airline plugin
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+
+" options for the mergetool plugin
+let g:mergetool_layout = 'LmR'
+let g:mergetool_prefer_revision = 'local'
 
 " prevent netrw from saving history?
 let g:netrw_dirhistmax=0
