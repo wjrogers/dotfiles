@@ -17,8 +17,19 @@
     algorithm = histogram
     tool = vimdiff
 [merge]
-    tool = vimdiff
+    conflictStyle = diff3
+    tool = vim-mergetool-qt
 [mergetool]
     keepBackup = false
+[mergetool "meld"]
+    cmd = meld --auto-merge --output $MERGED $LOCAL $BASE $REMOTE
+[mergetool "vim-fugitive"]
+    cmd = vim -f -c "Gvdiffsplit!" "$MERGED"
+    trustExitCode = true
+[mergetool "vim-mergetool"]
+    cmd = vim -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
+    trustExitCode = true
+[mergetool "vim-mergetool-qt"]
+    cmd = nvim-qt --maximized -- -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
 [credential]
     helper = manager
