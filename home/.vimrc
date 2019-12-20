@@ -141,6 +141,17 @@ else
     autocmd GUIEnter * set lines=50 columns=120
 end
 
+" balance splits when resizing in diff mode
+function ResizeDiffSplits()
+  if &diff
+    execute "normal \<C-w>="
+  end
+endfunction
+augroup resize-diff
+  au!
+  au VimResized,WinNew * call ResizeDiffSplits()
+augroup end
+
 " use system temp for swap
 if has("win32")
     set directory=$TEMP
