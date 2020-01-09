@@ -51,6 +51,7 @@ $Links = @{
     "$Profile" = "$Base/powershell/Microsoft.PowerShell_profile.ps1"
     "$Env:APPDATA/mintty/config" = "$Base/mintty/config"
     "$HOME/.gitconfig" = "$Base/home/.gitconfig"
+    "$HOME/.gvimrc" = "$Base/home/.gvimrc"
     "$HOME/.vimrc" = "$Base/home/.vimrc"
     "$HOME/.vim" = "$Base/home/.vim"
     "$HOME/vimfiles" = "$Base/home/.vim"
