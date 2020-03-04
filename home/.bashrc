@@ -25,6 +25,10 @@ if [ -z "$TMUX" ] && command -v tmux > /dev/null; then
         ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
         export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
 
+    # wsl-ssh-agent (:
+    elif [ -n ${WSL_AUTH_SOCK} ]; then
+      export SSH_AUTH_SOCK=${WSL_AUTH_SOCK}
+
     # ssh-agent-wsl
     elif command -v ~/.ssh/ssh-agent-wsl > /dev/null; then
         eval $(~/.ssh/ssh-agent-wsl -r)
