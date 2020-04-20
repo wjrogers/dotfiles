@@ -1,12 +1,22 @@
 Function Prompt {
+  $savedLastExitCode = $LASTEXITCODE
+
   $Location = Get-Location
   $host.UI.RawUI.WindowTitle = $Location
+
+  # handle z.lua history ourselves to preserve LASTEXITCODE
+  if ($global:_zlua_inited) {
+    _zlua --update
+  }
+
+  $LASTEXITCODE = $savedLastExitCode
   "PS $Location>"
 }
 
 # environment
 $Env:FZF_DEFAULT_COMMAND = 'fd --type file --color=always --follow --hidden --exclude .git'
 $Env:FZF_DEFAULT_OPTS = '--ansi --layout=reverse --border'
+$Env:_ZL_NO_PROMPT_COMMAND = $true
 
 # PSFzf
 Remove-PSReadlineKeyHandler 'Ctrl+r'
