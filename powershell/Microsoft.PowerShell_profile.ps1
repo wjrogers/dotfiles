@@ -23,11 +23,12 @@ Remove-PSReadlineKeyHandler 'Ctrl+r'
 Import-Module PSFzf
 
 # z.lua
-$ZLuaPath = "$HOME/dotfiles/z.lua"
-Invoke-Expression ($(lua $ZLuaPath --init powershell) -join "`n")
+if (Test-Path "$Env:DOTFILES_HOME/z.lua") {
+  Invoke-Expression ($(lua "$Env:DOTFILES_HOME/z.lua" --init powershell) -join "`n")
 
-# z.lua -- customize and replace the default alias
-Remove-Alias z
-Function z { _zlua -I $Args }
-Function zc { _zlua -I -c $Args }
-Function zh { _zlua -I -t . }
+  # z.lua -- customize and replace the default alias
+  Remove-Alias z
+  Function z { _zlua -I $Args }
+  Function zc { _zlua -I -c $Args }
+  Function zh { _zlua -I -t . }
+}

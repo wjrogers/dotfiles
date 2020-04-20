@@ -1,4 +1,10 @@
-$Base = "$HOME\dotfiles"
+$Base = "$HOME\.dotfiles"
+
+if ($PSEdition -ne 'Core') {
+    Write-Host "Install the pre-requisites from the Microsoft Store first."
+    write-Host
+    return
+}
 
 Write-Host "Installing dotfiles to $Base ..."
 Write-Host
@@ -6,7 +12,14 @@ Write-Host
 # Bootstrap scoop
 if (-not (Get-Command scoop)) {
     Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
-    & scoop install git pwsh
+    & scoop install git
+
+    # Install scoop apps
+    $ScoopApps = Get-Content "$Base/Scoopfile"
+    & scoop bucket add extras
+    & scoop bucket add java
+    & scoop bucket add versions
+    & scoop install @ScoopApps
 }
 
 # Bootstrap this repository
@@ -28,23 +41,6 @@ if ($AgentService -and $AgentService.StartType -ne 'Automatic') {
 "@
 }
 $AgentService = $null
-
-# Switch to PowerShell Core
-if ($PSEdition -ne 'Core') {
-    Write-Host "Bootstrapping complete."
-    Write-Host
-    Write-Host "Run the remainder of this script in PowerShell Core:"
-    Write-Host "  $(scoop which pwsh) $PSCommandPath"
-    Write-Host
-    return
-}
-
-# Install scoop apps
-$ScoopApps = Get-Content "$Base/Scoopfile"
-& scoop bucket add extras
-& scoop bucket add java
-& scoop bucket add versions
-& scoop install @ScoopApps
 
 # Symlinks
 $Links = @{
@@ -71,6 +67,7 @@ foreach ($Source in $Links.Keys) {
 
 # Environment (nulls delete old stuff if it's still around)
 $Environment = @{
+    "DOTFILES_HOME" = $Base
     "GITHUB_TOKEN" = $null
     "GITHUB_USER" = $null
     "GIT_SSH" = (Resolve-Path (& where.exe ssh))
@@ -86,3 +83,7 @@ foreach ($Key in $Environment.Keys) {
 
 # Modules
 Install-Module -Scope CurrentUser PSFzf
+
+# Done!
+Write-Host "Bootstrapping complete."
+Write-Host

@@ -4,13 +4,15 @@
 
 1. Enable developer mode in Windows Settings. This allows you to create symbolic links without elevation.
 
-1. In a normal PowerShell session, execute the install script from this repository.
+1. Install the [latest release](https://github.com/PowerShell/PowerShell/releases/latest) of PowerShell.
+
+1. Install [Windows Terminal](https://aka.ms/windowsterminal) from the Microsoft Store.
+
+1. Open Windows Terminal and execute the install script from this repository.
 
     ```powershell
     Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/wjrogers/dotfiles/master/install.ps1')
     ```
-
-1. After the script completes the bootstrap steps, follow the instructions to execute the remainder in PowerShell Core.
 
 1. Add a key to the agent (note: you only have to do this _once_; Windows saves it in the hopefully-secure Windows Credential Manager -- yet another reason to lock your workstation)
 

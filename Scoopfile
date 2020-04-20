@@ -6,8 +6,6 @@ fzf
 git
 jq
 lua-for-windows
-pwsh
 ripgrep
-ssh-agent-wsl
 tidy
 vim
