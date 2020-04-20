@@ -16,6 +16,11 @@
 [diff]
     algorithm = histogram
     tool = vimdiff
+    guitool = meld
+[difftool]
+    prompt = false
+[difftool "meld"]
+    cmd = meld "$LOCAL" "$REMOTE"
 [merge]
     conflictStyle = diff3
     tool = vim-mergetool-qt
