@@ -21,7 +21,7 @@ if ! command -v brew > /dev/null; then
 fi
 
 # homebrew packages
-brew bundle
+brew bundle --no-lock
 
 # configuration (explicit target in case ~/.dotfiles is a symlink)
 STOW_CMD="stow -v --target $HOME"
