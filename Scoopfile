@@ -4,6 +4,7 @@ curl
 fd
 fzf
 git
+innounp
 jq
 lua-for-windows
 ripgrep
