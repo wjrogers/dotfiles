@@ -29,14 +29,6 @@ if [ -z "$TMUX" ] && command -v tmux > /dev/null; then
     elif [ -n ${WSL_AUTH_SOCK} ]; then
       export SSH_AUTH_SOCK=${WSL_AUTH_SOCK}
 
-    # ssh-agent-wsl
-    elif command -v ~/.ssh/ssh-agent-wsl > /dev/null; then
-        eval $(~/.ssh/ssh-agent-wsl -r)
-
-    # ssh-pageant
-    elif [ -x /usr/bin/ssh-pageant ]; then
-        eval $(/usr/bin/ssh-pageant -r -a "/tmp/.ssh-pageant-$USERNAME")
-
     # wrap in ssh-agent if this is a local session
     elif [ -z "$SSH_TTY" ] && command -v ssh-agent > /dev/null; then
         exec ssh-agent tmux new
