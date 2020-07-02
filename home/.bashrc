@@ -28,10 +28,6 @@ if [ -z "$TMUX" ] && command -v tmux > /dev/null; then
     # wsl-ssh-agent (:
     elif [ -n ${WSL_AUTH_SOCK} ]; then
       export SSH_AUTH_SOCK=${WSL_AUTH_SOCK}
-
-    # wrap in ssh-agent if this is a local session
-    elif [ -z "$SSH_TTY" ] && command -v ssh-agent > /dev/null; then
-        exec ssh-agent tmux new
     fi
 
     # don't auto-attach local sessions
@@ -40,6 +36,11 @@ if [ -z "$TMUX" ] && command -v tmux > /dev/null; then
     else
         exec tmux new -A -s auto
     fi
+fi
+
+# keychain
+if command -v keychain > /dev/null; then
+  eval `keychain --eval --agents ssh --inherit any id_rsa`
 fi
 
 # ls colors
