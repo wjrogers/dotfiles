@@ -40,7 +40,7 @@ fi
 
 # keychain
 if command -v keychain > /dev/null; then
-  eval `keychain --eval --agents ssh --inherit any id_rsa`
+  eval `keychain --eval --agents ssh --inherit any-once`
 fi
 
 # ls colors
