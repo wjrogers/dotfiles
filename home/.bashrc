@@ -20,22 +20,22 @@ fi
 # launch tmux
 if [ -z "$TMUX" ] && command -v tmux > /dev/null; then
 
-    # fix SSH agent forwarding on re-attaching
-    if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
-        ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
-        export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+  # fix SSH agent forwarding on re-attaching
+  if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
+    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+    export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
 
-    # wsl-ssh-agent (:
-    elif [ -n ${WSL_AUTH_SOCK} ]; then
-      export SSH_AUTH_SOCK=${WSL_AUTH_SOCK}
-    fi
+  # wsl-ssh-agent (:
+  elif [ -n ${WSL_AUTH_SOCK} ]; then
+    export SSH_AUTH_SOCK=${WSL_AUTH_SOCK}
+  fi
 
-    # don't auto-attach local sessions
-    if [ -z "$SSH_TTY" ]; then
-        exec tmux new
-    else
-        exec tmux new -A -s auto
-    fi
+  # don't auto-attach local sessions
+  if [ -z "$SSH_TTY" ]; then
+    exec tmux new
+  else
+    exec tmux new -A -s auto
+  fi
 fi
 
 # keychain
@@ -80,7 +80,7 @@ __fzf_history__() (
 # z.lua
 Z_LUA_PATH=~/.dotfiles/z.lua
 if command -v lua > /dev/null && [ -f $Z_LUA_PATH ]; then
-    eval "$(lua $Z_LUA_PATH --init bash enhanced once fzf)"
+  eval "$(lua $Z_LUA_PATH --init bash enhanced once fzf)"
 fi
 
 # aliases
