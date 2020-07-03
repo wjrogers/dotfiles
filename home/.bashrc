@@ -83,18 +83,6 @@ if command -v lua > /dev/null && [ -f $Z_LUA_PATH ]; then
     eval "$(lua $Z_LUA_PATH --init bash enhanced once fzf)"
 fi
 
-# pyenv
-if command -v "$HOME/.pyenv/bin/pyenv" > /dev/null; then
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
-fi
-
-# nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # aliases
 alias ls='exa -l'
 alias rg='rg -S'
