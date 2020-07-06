@@ -18,7 +18,11 @@ if command -v $BREW > /dev/null && ! command -v brew > /dev/null; then
 fi
 
 # launch tmux
-if [ -z "$TMUX" ] && command -v tmux > /dev/null; then
+if \
+  [ -z "$TMUX" ] && \
+  [[ ! "$WSLENV" =~ "VSCODE" ]] && \
+  command -v tmux > /dev/null; \
+then
 
   # fix SSH agent forwarding on re-attaching
   if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
