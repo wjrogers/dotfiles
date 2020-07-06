@@ -66,17 +66,6 @@ PS1='\[\e[0m\]\n\[\e[1;32m\]\w \[\e[1;37m\]$ \[\e[0m\]'
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-# fzf -- customize history command to read the file, not from memory
-__fzf_history__() (
-  local line
-  shopt -u nocaseglob nocasematch
-  line=$(
-    cat -n $HISTFILE |
-    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS --tac --sync -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS +m" $(__fzfcmd) |
-    command grep '^ *[0-9]') &&
-    sed 's/^ *\([0-9]*\)\** *//' <<< "$line"
-)
-
 # z.lua
 Z_LUA_PATH=~/.dotfiles/z.lua
 if command -v lua > /dev/null && [ -f $Z_LUA_PATH ]; then
