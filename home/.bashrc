@@ -15,11 +15,6 @@ test -d ~/.linuxbrew && BREW='~/.linuxbrew/bin/brew'
 test -d /home/linuxbrew/.linuxbrew && BREW='/home/linuxbrew/.linuxbrew/bin/brew'
 if command -v $BREW > /dev/null && ! command -v brew > /dev/null; then
   eval $($BREW shellenv)
-
-  # completions
-  for COMPLETION in "$($BREW --prefix)/etc/bash_completion.d/"*; do
-    [[ -r "$COMPLETION" ]] && source "$COMPLETION"
-  done
 fi
 
 # launch tmux
@@ -86,6 +81,13 @@ __fzf_history__() (
 Z_LUA_PATH=~/.dotfiles/z.lua
 if command -v lua > /dev/null && [ -f $Z_LUA_PATH ]; then
   eval "$(lua $Z_LUA_PATH --init bash enhanced once fzf)"
+fi
+
+# completions
+if [[ -n "$HOMEBREW_PREFIX" ]]; then
+  for COMPLETION in "$HOMEBREW_PREFIX/etc/bash_completion.d/"*; do
+    [[ -r "$COMPLETION" ]] && source "$COMPLETION"
+  done
 fi
 
 # aliases
