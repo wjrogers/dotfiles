@@ -11,6 +11,8 @@
     branch = auto
     interactive = true
 
+[pull]
+    ff = only
 [push]
     default = simple
 [diff]
