@@ -1,10 +1,10 @@
 #! /usr/bin/env lua
 --=====================================================================
 --
--- z.lua - a cd command that learns, by skywind 2018, 2019
+-- z.lua - a cd command that learns, by skywind 2018, 2019, 2020
 -- Licensed under MIT license.
 --
--- Version 1.7.2, Last Modified: 2019/08/01 19:45
+-- Version 1.8.7, Last Modified: 2020/06/29 18:04
 --
 -- * 10x faster than fasd and autojump, 3x faster than z.sh
 -- * available for posix shells: bash, zsh, sh, ash, dash, busybox
@@ -74,6 +74,8 @@
 --   set $_ZL_MAXAGE to define a aging threshold (default is 5000).
 --   set $_ZL_MATCH_MODE to 1 to enable enhanced matching mode.
 --   set $_ZL_NO_CHECK to 1 to disable path validation. z --purge to clear.
+--   set $_ZL_USE_LFS to 1 to use lua-filesystem package
+--   set $_ZL_HYPHEN to 1 to stop treating hyphen as a regexp keyword
 --
 --=====================================================================
 
@@ -120,6 +122,7 @@ Z_CMD = 'z'
 Z_MATCHMODE = 0
 Z_MATCHNAME = false
 Z_SKIPPWD = false
+Z_HYPHEN = false
 
 os.LOG_NAME = os.getenv('_ZL_LOG_NAME')
 
@@ -316,14 +319,16 @@ if os.native.status then
 		uint32_t GetTickCount(void);
 		uint32_t GetFileAttributesA(const char *name);
 		uint32_t GetCurrentDirectoryA(uint32_t size, char *ptr);
+		uint32_t GetShortPathNameA(const char *longname, char *shortname, uint32_t size);
+		uint32_t GetLongPathNameA(const char *shortname, char *longname, uint32_t size);
 		]]
 		local kernel32 = ffi.load('kernel32.dll')
-		local buffer = ffi.new('char[?]', 300)
+		local buffer = ffi.new('char[?]', 4100)
 		local INVALID_FILE_ATTRIBUTES = 0xffffffff
 		local FILE_ATTRIBUTE_DIRECTORY = 0x10
 		os.native.kernel32 = kernel32
 		function os.native.GetFullPathName(name)
-			local hr = kernel32.GetFullPathNameA(name, 290, buffer, nil)
+			local hr = kernel32.GetFullPathNameA(name, 4096, buffer, nil)
 			return (hr > 0) and ffi.string(buffer, hr) or nil
 		end
 		function os.native.ReplaceFile(replaced, replacement)
@@ -335,6 +340,21 @@ if os.native.status then
 		end
 		function os.native.GetFileAttributes(name)
 			return kernel32.GetFileAttributesA(name)
+		end
+		function os.native.GetLongPathName(name)
+			local hr = kernel32.GetLongPathNameA(name, buffer, 4096)
+			return (hr ~= 0) and ffi.string(buffer, hr) or nil
+		end
+		function os.native.GetShortPathName(name)
+			local hr = kernel32.GetShortPathNameA(name, buffer, 4096)
+			return (hr ~= 0) and ffi.string(buffer, hr) or nil
+		end
+		function os.native.GetRealPathName(name)
+			local short = os.native.GetShortPathName(name)
+			if short then
+				return os.native.GetLongPathName(short)
+			end
+			return nil
 		end
 		function os.native.exists(name)
 			local attr = os.native.GetFileAttributes(name)
@@ -349,7 +369,7 @@ if os.native.status then
 			return (attr % (2 * isdir)) >= isdir
 		end
 		function os.native.getcwd()
-			local hr = kernel32.GetCurrentDirectoryA(299, buffer)
+			local hr = kernel32.GetCurrentDirectoryA(4096, buffer)
 			if hr <= 0 then return nil end
 			return ffi.string(buffer, hr)
 		end
@@ -548,6 +568,12 @@ end
 -- file or path exists
 -----------------------------------------------------------------------
 function os.path.exists(name)
+	if name == '/' then
+		return true
+	end
+	if os.native and os.native.exists then
+		return os.native.exists(name)
+	end
 	local ok, err, code = os.rename(name, name)
 	if not ok then
 		if code == 13 then
@@ -1263,6 +1289,9 @@ function data_select(M, patterns, matchlast)
 	local pats = {}
 	for i = 1, #patterns do
 		local p = patterns[i]
+		if Z_HYPHEN then
+			p = p:gsub('-', '%%-')
+		end
 		table.insert(pats, case_insensitive_pattern(p))
 	end
 	for i = 1, #M do
@@ -1348,6 +1377,14 @@ function z_add(path)
 				end
 			end
 			if not skip then
+				if windows then
+					if os.native and os.native.GetRealPathName then
+						local ts = os.native.GetRealPathName(path)
+						if ts then
+							path = ts
+						end
+					end
+				end
 				M = data_insert(M, path)
 				count = count + 1
 			end
@@ -1576,7 +1613,7 @@ function z_cd(patterns)
 		io.stderr:write('> ')
 		io.stderr:flush()
 		local input = io.read('*l')
-		if input == nil then
+		if input == nil or input == '' then
 			return nil
 		end
 		local index = tonumber(input)
@@ -1759,6 +1796,91 @@ end
 
 
 -----------------------------------------------------------------------
+-- cd breadcrumbs: z -b -i, z -b -I
+-----------------------------------------------------------------------
+function cd_breadcrumbs(pwd, interactive)
+	local pwd = (pwd == nil or pwd == '') and os.pwd() or pwd
+	local pwd = os.path.normpath(pwd)
+	local path, _ = os.path.split(pwd)
+	local elements = {}
+	local interactive = interactive and interactive or 1
+	local fullname = os.environ('_ZL_FULL_PATH', false)
+	while true do
+		local head, name = os.path.split(path)
+		if head == path  then		-- reached root
+			table.insert(elements, {head, head})
+			break
+		elseif name ~= '' then
+			table.insert(elements, {name, path})
+		else
+			break
+		end
+		path = head
+	end
+	local tmpname = '/tmp/zlua.txt'
+	local fp = io.stderr
+	if interactive == 2 then
+		if not windows then
+			tmpname = os.tmpname()
+		else
+			tmpname = os.tmpname():gsub('\\', ''):gsub('%.', '')
+			tmpname = os.environ('TMP', '') .. '\\zlua_' .. tmpname .. '.txt'
+		end
+		fp = io.open(tmpname, 'w')
+	end
+	-- print table
+	local maxsize = string.len(tostring(#elements))
+	for i = #elements, 1, -1 do
+		local item = elements[i]
+		local name = item[1]
+		local text = string.rep(' ', maxsize - string.len(i)) .. tostring(i)
+		text = text .. ': ' .. (fullname and item[2] or item[1])
+		fp:write(text .. '\n')
+	end
+	if fp ~= io.stderr then
+		fp:close()
+	end
+	local retval = ''
+	-- select from stdin or fzf
+	if interactive == 1 then
+		io.stderr:write('> ')
+		io.stderr:flush()
+		retval = io.read('*l')
+	elseif interactive == 2 then
+		local fzf = os.environ('_ZL_FZF', 'fzf')
+		local cmd = '--reverse --inline-info --tac '
+		local flag = os.environ('_ZL_FZF_FLAG', '')
+		flag = (flag == '' or flag == nil) and '+s -e' or flag
+		cmd = ((fzf == '') and 'fzf' or fzf) .. ' ' .. cmd .. ' ' .. flag
+		if not windows then
+			local height = os.environ('_ZL_FZF_HEIGHT', '35%')
+			if height ~= nil and height ~= '' and height ~= '0' then
+				cmd = cmd .. ' --height ' .. height
+			end
+			cmd = cmd .. '< "' .. tmpname .. '"'
+		else
+			cmd = 'type "' .. tmpname .. '" | ' .. cmd
+		end
+		retval = os.call(cmd)
+		os.remove(tmpname)
+		if retval == '' or retval == nil then
+			return nil
+		end
+		local pos = retval:find(':')
+		if not pos then
+			return nil
+		end
+		retval = retval:sub(1, pos - 1):gsub('^%s*', '')
+	end
+	local index = tonumber(retval)
+	if index == nil or index < 1 or index > #elements then
+		return nil
+	end
+	return elements[index][2]
+end
+
+
+-----------------------------------------------------------------------
 -- main entry
 -----------------------------------------------------------------------
 function main(argv)
@@ -1792,7 +1914,11 @@ function main(argv)
 	if options['--cd'] or options['-e'] then
 		local path = ''
 		if options['-b'] then
-			path = cd_backward(args, options)
+			if Z_INTERACTIVE == 0 then
+				path = cd_backward(args, options)
+			else
+				path = cd_breadcrumbs('', Z_INTERACTIVE)
+			end
 		elseif options['-'] then
 			path = cd_minus(args, options)
 		elseif #args == 0 then
@@ -1864,6 +1990,7 @@ function z_init()
 	local _zl_matchname = os.getenv('_ZL_MATCH_NAME')
 	local _zl_skippwd = os.getenv('_ZL_SKIP_PWD')
 	local _zl_matchmode = os.getenv('_ZL_MATCH_MODE')
+	local _zl_hyphen = os.getenv('_ZL_HYPHEN')
 	if _zl_data ~= nil and _zl_data ~= "" then
 		if windows then
 			DATA_FILE = _zl_data
@@ -1914,6 +2041,12 @@ function z_init()
 		if (m == 1) then
 			Z_MATCHNAME = true
 			Z_SKIPPWD = true
+		end
+	end
+	if _zl_hyphen ~= nil then
+		local m = string.lower(_zl_hyphen)
+		if (m == '1' or m == 'yes' or m == 'true' or m == 't') then
+			Z_HYPHEN = true
 		end
 	end
 end
@@ -2096,14 +2229,14 @@ fi
 local script_complete_zsh = [[
 _zlua_zsh_tab_completion() {
 	# tab completion
-	local compl
-	read -l compl
 	(( $+compstate )) && compstate[insert]=menu # no expand
-	reply=(${(f)"$(_zlua --complete "$compl")"})
+	local -a tmp=(${(f)"$(_zlua --complete "${words/_zlua/z}")"})
+	_describe "directory" tmp -U
 }
-compctl -U -K _zlua_zsh_tab_completion _zlua
+if [ "${+functions[compdef]}" -ne 0 ]; then
+	compdef _zlua_zsh_tab_completion _zlua 2> /dev/null
+fi
 ]]
-
 
 
 -----------------------------------------------------------------------
@@ -2125,6 +2258,10 @@ function z_shell_init(opts)
 
 	local prompt_hook = (not os.environ("_ZL_NO_PROMPT_COMMAND", false))
 	local once = os.environ("_ZL_ADD_ONCE", false) or opts.once ~= nil
+
+	if opts.clean ~= nil then
+		prompt_hook = false
+	end
 
 	if opts.bash ~= nil then
 		if prompt_hook then
@@ -2295,18 +2432,24 @@ function z_fish_init(opts)
 	print('set -x ZLUA_SCRIPT "' .. os.scriptname() .. '"')
 	print('set -x ZLUA_LUAEXE "' .. os.interpreter() .. '"')
 	local once = (os.getenv("_ZL_ADD_ONCE") ~= nil) or opts.once ~= nil
+	local prompt_hook = (not os.environ("_ZL_NO_PROMPT_COMMAND", false))
+	if opts.clean ~= nil then
+		prompt_hook = false
+	end
 	print(script_zlua_fish)
-	if once then
-		print(script_init_fish_once)
-	else
-		print(script_init_fish)
+	if prompt_hook then
+		if once then
+			print(script_init_fish_once)
+		else
+			print(script_init_fish)
+		end
 	end
 	print(script_complete_fish)
 	if opts.enhanced ~= nil then
 		print('set -x _ZL_MATCH_MODE 1')
 	end
 	if opts.echo then
-		print('set _ZL_ECHO 1')
+		print('set -g _ZL_ECHO 1')
 	end
 	if opts.nc then
 		print('set -x _ZL_NO_CHECK 1')
@@ -2489,6 +2632,10 @@ if (!$env:_ZL_NO_PROMPT_COMMAND -and (!$global:_zlua_inited)) {
 -- initialize cmd/powershell
 -----------------------------------------------------------------------
 function z_windows_init(opts)
+	local prompt_hook = (not os.environ("_ZL_NO_PROMPT_COMMAND", false))
+	if opts.clean ~= nil then
+		prompt_hook = false
+	end
 	if opts.powershell ~= nil then
 		print('$script:ZLUA_LUAEXE = "' .. os.interpreter() .. '"')
 		print('$script:ZLUA_SCRIPT = "' .. os.scriptname() .. '"')
@@ -2505,7 +2652,9 @@ function z_windows_init(opts)
 		if opts.nc ~= nil then
 			print('$env:_ZL_NO_CHECK = 1')
 		end
-		print(script_init_powershell)
+		if prompt_hook then
+			print(script_init_powershell)
+		end
 	else
 		print('@echo off')
 		print('setlocal EnableDelayedExpansion')
@@ -2539,7 +2688,34 @@ end
 
 
 -----------------------------------------------------------------------
--- testing case
+-- LFS optimize
+-----------------------------------------------------------------------
+os.lfs = {}
+os.lfs.enable = os.getenv('_ZL_USE_LFS')
+os.lfs.enable = '1'
+if os.lfs.enable ~= nil then
+	local m = string.lower(os.lfs.enable)
+	if (m == '1' or m == 'yes' or m == 'true' or m == 't') then
+		os.lfs.status, os.lfs.pkg = pcall(require, 'lfs')
+		if os.lfs.status then
+			local lfs = os.lfs.pkg
+			os.path.exists = function (name)
+				return lfs.attributes(name) and true or false
+			end
+			os.path.isdir = function (name)
+				local mode = lfs.attributes(name)
+				if not mode then 
+					return false
+				end
+				return (mode.mode == 'directory') and true or false
+			end
+		end
+	end
+end
+
+
+-----------------------------------------------------------------------
+-- program entry
 -----------------------------------------------------------------------
 if not pcall(debug.getlocal, 4, 1) then
 	-- main script
@@ -2550,6 +2726,5 @@ if not pcall(debug.getlocal, 4, 1) then
 		main()
 	end
 end
-
 
 
