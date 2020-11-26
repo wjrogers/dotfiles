@@ -39,4 +39,4 @@
 [mergetool "vim-mergetool-qt"]
     cmd = nvim-qt --maximized -- -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
 [credential]
-    helper = manager
+    helper = manager-core
