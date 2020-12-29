@@ -105,6 +105,9 @@ let g:mergetool_prefer_revision = 'local'
 " prevent netrw from saving history?
 let g:netrw_dirhistmax=0
 
+" customize fzf options
+let $FZF_DEFAULT_OPTS = '--ansi --reverse'
+
 " customize fzf colors to match your color scheme
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
