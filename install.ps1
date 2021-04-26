@@ -14,6 +14,9 @@ if (-not (Get-Command scoop)) {
     Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
     & scoop install git
 
+    # Install a newer OpenSSH
+    & scoop install win32-openssh
+
     # Install scoop apps
     $ScoopApps = Get-Content "$Base/Scoopfile"
     & scoop bucket add extras
@@ -66,12 +69,23 @@ foreach ($Source in $Links.Keys) {
     }
 }
 
+# Environment -- Machine
+$SystemPathBlocklist = @(
+    "$($Env:SystemRoot)\System32\OpenSSH"
+)
+$SystemPath = [System.Environment]::GetEnvironmentVariable("PATH", "Machine").Split(";")
+$SystemPathModified = $SystemPath | where { $SystemPathBlocklist -notcontains $_ }
+$SystemPathItemsRemoved = $SystemPath | where { $SystemPathModified -notcontains $_ }
+foreach ($item in $SystemPathItemsRemoved) {
+    Write-Host "Please remove '$item' from the system PATH!"
+}
+
 # Environment (nulls delete old stuff if it's still around)
 $Environment = @{
     "DOTFILES_HOME" = $Base
     "GITHUB_TOKEN" = $null
     "GITHUB_USER" = $null
-    "GIT_SSH" = (Resolve-Path (& where.exe ssh))
+    "GIT_SSH" = (Resolve-Path "$HOME/scoop/shims/ssh.exe")
     "HOME" = $null
     "HTML_TIDY" = (Resolve-Path "$Base/home/.tidyrc")
     "TERM" = $null
