@@ -65,10 +65,9 @@ PS1='\[\e[0m\]\n\[\e[1;32m\]\w \[\e[1;37m\]$ \[\e[0m\]'
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-# z.lua
-Z_LUA_PATH=~/.dotfiles/z.lua
-if command -v lua > /dev/null && [ -f $Z_LUA_PATH ]; then
-  eval "$(lua $Z_LUA_PATH --init bash enhanced once fzf)"
+# zoxide
+if command -v zoxide > /dev/null; then
+  eval "$(zoxide init bash)"
 fi
 
 # completions
@@ -81,9 +80,6 @@ fi
 # aliases
 alias ls='exa -l'
 alias rg='rg -S'
-alias z='_zlua -I'
-alias zc='_zlua -I -c'
-alias zh='_zlua -I -t .'
 
 # source custom local configuration
 [ -e ~/.bashrc.local ] && source ~/.bashrc.local
