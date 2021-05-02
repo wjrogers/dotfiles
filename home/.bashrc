@@ -15,6 +15,7 @@ shopt -s histappend
 # launch tmux
 if \
   [ -z "$TMUX" ] && \
+  [ -z "$TMUX_NO_AUTOEXEC" ] && \
   [[ ! "$WSLENV" =~ "VSCODE" ]] && \
   command -v tmux > /dev/null; \
 then
