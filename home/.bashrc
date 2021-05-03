@@ -77,10 +77,20 @@ if [[ -n "$HOMEBREW_PREFIX" ]]; then
     [[ -r "$COMPLETION" ]] && source "$COMPLETION"
   done
 fi
+if command -v aws_completer > /dev/null; then
+  complete -C aws_completer aws
+fi
+if command -v kubectl > /dev/null; then
+  eval "$(kubectl completion bash)"
+fi
+if command -v terraform > /dev/null; then
+  complete -C terraform terraform tf
+fi
 
 # aliases
 alias ls='exa -l'
 alias rg='rg -S'
+alias tf='terraform'
 
 # source custom local configuration
 [ -e ~/.bashrc.local ] && source ~/.bashrc.local
