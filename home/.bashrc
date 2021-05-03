@@ -8,10 +8,6 @@ fi
 # Check for an interactive session
 [ -z "$PS1" ] && return
 
-# shell options
-shopt -s checkwinsize
-shopt -s histappend
-
 # launch tmux
 if \
   [ -z "$TMUX" ] && \
@@ -38,6 +34,16 @@ then
   fi
 fi
 
+# shell options
+shopt -s checkwinsize
+shopt -s cmdhist
+shopt -s globstar 2> /dev/null
+shopt -s histappend
+shopt -s nocaseglob
+
+# prevent redirects clobbering existing files (use '>|' to override)
+set -o noclobber
+
 # keychain
 if command -v keychain > /dev/null; then
   eval `keychain --eval --agents ssh --inherit any-once`
@@ -57,7 +63,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 unset GIT_SSH
 
 # prompt
-HISTCONTROL='ignorespace:erasedups'
+HISTCONTROL='erasedups:ignoreboth'
 HISTFILESIZE=2000
 HISTIGNORE='ls:git status:tig*'
 PROMPT_COMMAND='history -a;printf "\e]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\a"'

@@ -1,7 +1,17 @@
 set completion-ignore-case on
+set completion-map-case on
 set mark-directories on
 set mark-symlinked-directories on
 set visible-stats on
 
 set show-all-if-ambiguous off
 "\t": menu-complete
+
+# Enable history expansion with space
+Space:magic-space
+
+# Enable incremental history search with up/down arrows
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+"\e[C": forward-char
+"\e[D": backward-char
