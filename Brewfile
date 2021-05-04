@@ -1,7 +1,6 @@
 tap "homebrew/bundle"
 tap "homebrew/core"
 brew "bat"
-brew "ctags"
 brew "exa"
 brew "fd"
 brew "fzf"
