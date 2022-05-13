@@ -26,6 +26,7 @@ let g:gutentags_cache_dir = expand('~/.cache/tags')
 call plug#begin('~/.vim-plugged')
 Plug 'arcticicestudio/nord-vim'
 Plug 'dense-analysis/ale'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'edkolev/tmuxline.vim'
 Plug 'junegunn/fzf' " obtains only fzf.vim, must install binaries elsewhere
 Plug 'junegunn/fzf.vim'
