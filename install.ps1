@@ -14,9 +14,6 @@ if (-not (Get-Command scoop)) {
     Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
     & scoop install git
 
-    # Install a newer OpenSSH
-    & scoop install win32-openssh
-
     # Install scoop apps
     $ScoopApps = Get-Content "$Base/Scoopfile"
     & scoop bucket add extras
@@ -85,7 +82,7 @@ $Environment = @{
     "DOTFILES_HOME" = $Base
     "GITHUB_TOKEN" = $null
     "GITHUB_USER" = $null
-    "GIT_SSH" = (Resolve-Path "$HOME/scoop/shims/ssh.exe")
+    "GIT_SSH" = (Resolve-Path "$($Env:SystemRoot)\System32\OpenSSH\ssh.exe")
     "HOME" = $null
     "HTML_TIDY" = (Resolve-Path "$Base/home/.tidyrc")
     "TERM" = $null
