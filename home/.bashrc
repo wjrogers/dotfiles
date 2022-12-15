@@ -8,32 +8,6 @@ fi
 # Check for an interactive session
 [ -z "$PS1" ] && return
 
-# launch tmux
-if \
-  [ -z "$TMUX" ] && \
-  [ -z "$TMUX_NO_AUTOEXEC" ] && \
-  [[ ! "$WSLENV" =~ "VSCODE" ]] && \
-  command -v tmux > /dev/null; \
-then
-
-  # fix SSH agent forwarding on re-attaching
-  if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
-    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
-    export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
-
-  # wsl-ssh-agent (:
-  elif [ -n ${WSL_AUTH_SOCK} ]; then
-    export SSH_AUTH_SOCK=${WSL_AUTH_SOCK}
-  fi
-
-  # start a new tmux server for local sessions
-  if [ -z "$SSH_TTY" ]; then
-    exec tmux new
-  else
-    exec tmux new -A -s auto
-  fi
-fi
-
 # shell options
 shopt -s checkwinsize
 shopt -s cmdhist
