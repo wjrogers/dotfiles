@@ -5,6 +5,10 @@
     autocrlf = false
     safecrlf = false
     whitespace = cr-at-eol
+
+[init]
+    defaultBranch = main
+
 [color]
     diff = auto
     status = auto
