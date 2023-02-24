@@ -4,6 +4,9 @@ Function Prompt {
   "PS $Location>"
 }
 
+# UTF-8 encoding!
+[console]::InputEncoding = [console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+
 # environment
 $Env:FZF_DEFAULT_COMMAND = 'fd --type file --color=always --follow --hidden --exclude .git'
 $Env:FZF_DEFAULT_OPTS = '--ansi --layout=reverse --height 40%'
