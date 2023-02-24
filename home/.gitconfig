@@ -15,23 +15,15 @@
     branch = auto
     interactive = true
 
+[merge]
+    conflictstyle = diff3
+
 [pull]
     ff = only
+
 [push]
     default = simple
-[diff]
-    algorithm = histogram
-    tool = vimdiff
-    guitool = meld
-[difftool]
-    prompt = false
-[difftool "meld"]
-    cmd = meld "$LOCAL" "$REMOTE"
-[merge]
-    conflictStyle = diff3
-    tool = vim-mergetool-qt
-[mergetool]
-    keepBackup = false
+
 [mergetool "meld"]
     cmd = meld --auto-merge --output $MERGED $LOCAL $BASE $REMOTE
 [mergetool "vim-fugitive"]
