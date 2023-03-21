@@ -6,6 +6,9 @@
     safecrlf = false
     whitespace = cr-at-eol
 
+[credential]
+    helper = manager
+
 [init]
     defaultBranch = main
 
@@ -34,5 +37,3 @@
     trustExitCode = true
 [mergetool "vim-mergetool-qt"]
     cmd = nvim-qt --maximized -- -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
-[credential]
-    helper = manager-core
