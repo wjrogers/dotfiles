@@ -37,3 +37,6 @@
     trustExitCode = true
 [mergetool "vim-mergetool-qt"]
     cmd = nvim-qt --maximized -- -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
+
+[include]
+    path = ~/.gitconfig.local
