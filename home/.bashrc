@@ -33,6 +33,7 @@ export FZF_DEFAULT_OPTS='--ansi --height 40% --layout=reverse'
 export FZF_ALT_C_COMMAND='fd --type d --color=always --follow --hidden --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_TMUX=1
+export LANG=en_US.UTF-8
 
 # environment we don't want to leak through from Windows
 unset GIT_SSH
