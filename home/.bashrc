@@ -59,6 +59,7 @@ fi
 
 # aliases
 alias ls='exa -l'
+alias la='ls -a'
 alias rg='rg -S'
 alias tf='terraform'
 
