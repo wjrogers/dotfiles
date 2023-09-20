@@ -1,10 +1,3 @@
-# homebrew -- source once before starting tmux
-test -d ~/.linuxbrew && BREW='~/.linuxbrew/bin/brew'
-test -d /home/linuxbrew/.linuxbrew && BREW='/home/linuxbrew/.linuxbrew/bin/brew'
-if command -v $BREW > /dev/null && ! command -v brew > /dev/null; then
-  eval $($BREW shellenv)
-fi
-
 # Check for an interactive session
 [ -z "$PS1" ] && return
 
@@ -54,11 +47,6 @@ if command -v zoxide > /dev/null; then
 fi
 
 # completions
-if [[ -n "$HOMEBREW_PREFIX" ]]; then
-  for COMPLETION in "$HOMEBREW_PREFIX/etc/bash_completion.d/"*; do
-    [[ -r "$COMPLETION" ]] && source "$COMPLETION"
-  done
-fi
 if command -v aws_completer > /dev/null; then
   complete -C aws_completer aws
 fi
