@@ -7,6 +7,17 @@
         repo: ppa:git-core/ppa
         state: present
 
+    - name: Add Balto Helm signing key
+      ansible.builtin.get_url:
+        url: https://baltocdn.com/helm/signing.asc
+        dest: /etc/apt/keyrings/balto_helm.asc
+        mode: "0644"
+
+    - name: Add Balto Helm repository
+      ansible.builtin.apt_repository:
+        repo: deb [signed-by=/etc/apt/keyrings/balto_helm.asc] https://baltocdn.com/helm/stable/debian/ all main
+        filename: balto_helm
+
     - name: Add HashiCorp signing key
       ansible.builtin.get_url:
         url: https://apt.releases.hashicorp.com/gpg
@@ -17,7 +28,17 @@
       ansible.builtin.apt_repository:
         repo: deb [signed-by=/etc/apt/keyrings/hashicorp.asc] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
         filename: hashicorp
-        state: present
+
+    - name: Add Kubernetes signing key
+      ansible.builtin.get_url:
+        url: https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key
+        dest: /etc/apt/keyrings/kubernetes.asc
+        mode: "0644"
+
+    - name: Add Kubernetes repository
+      ansible.builtin.apt_repository:
+        repo: deb [signed-by=/etc/apt/keyrings/kubernetes.asc] https://pkgs.k8s.io/core:/stable:/v1.25/deb/ /
+        filename: kubernetes
 
     - name: Install packages
       ansible.builtin.apt:
@@ -25,7 +46,9 @@
           - build-essential
           - exa
           - git
+          - helm
           - jq
+          - kubectl
           - ripgrep
           - terraform
           - tig
