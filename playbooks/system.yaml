@@ -49,6 +49,7 @@
           - git
           - helm
           - jq
+          - keychain
           - kubectl
           - ripgrep
           - terraform
