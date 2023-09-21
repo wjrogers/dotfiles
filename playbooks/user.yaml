@@ -56,3 +56,14 @@
         cmd: sh -s -- -y
         stdin: "{{ rustup_installer.content }}"
       changed_when: false
+
+    - name: Install crates | define list
+      ansible.builtin.set_fact:
+        crates:
+          - zoxide
+        cacheable: true
+      register: crates_list
+
+    - name: Install crates
+      ansible.builtin.command: ~/.cargo/bin/cargo install --locked {{ crates | join(' ') }}
+      changed_when: crates_list.changed
