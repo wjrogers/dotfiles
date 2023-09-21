@@ -48,7 +48,7 @@
 
 - name: Install rustup
   ansible.builtin.command:
-    cmd: sh -s -- -y
+    cmd: sh -s -- -y --no-modify-path
     stdin: "{{ rustup_installer.content }}"
   changed_when: false
 
