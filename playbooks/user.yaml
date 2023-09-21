@@ -60,6 +60,7 @@
     - name: Install crates | define list
       ansible.builtin.set_fact:
         crates:
+          - starship
           - zoxide
         cacheable: true
       register: crates_list

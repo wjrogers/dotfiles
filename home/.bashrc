@@ -67,3 +67,6 @@ alias tf='terraform'
 
 # source custom local configuration
 [ -e ~/.bashrc.local ] && source ~/.bashrc.local
+
+# starship go
+[ -x "$(command -v starship)" ] && eval "$(starship init bash)"
