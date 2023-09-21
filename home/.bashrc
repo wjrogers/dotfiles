@@ -57,7 +57,7 @@ if command -v terraform > /dev/null; then
 fi
 
 # aliases
-alias ls='exa -l'
+[ -x "$(command -v exa)" ] && alias ls='exa -l'
 alias la='ls -a'
 alias rg='rg -S'
 alias tf='terraform'
