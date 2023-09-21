@@ -44,6 +44,7 @@
       ansible.builtin.apt:
         name:
           - build-essential
+          - cmake
           - exa
           - git
           - helm

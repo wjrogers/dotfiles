@@ -37,6 +37,9 @@ HISTIGNORE='ls:git status:tig*'
 PROMPT_COMMAND='history -a;printf "\e]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\a"'
 PS1='\[\e[0m\]\n\[\e[1;32m\]\w \[\e[1;37m\]$ \[\e[0m\]'
 
+# cargo (rustup) -- must run early so later checks work
+[ -f ~/.cargo/env ] && source ~/.cargo/env
+
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
