@@ -47,6 +47,7 @@
       - jq
       - keychain
       - kubectl
+      - libfuse2
       - ripgrep
       - terraform
       - tig

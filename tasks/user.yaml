@@ -40,6 +40,12 @@
       ansible.builtin.command: ~/.local/share/fzf/install --all --no-zsh --no-fish
       changed_when: fzf_git.changed
 
+- name: Install Neovim
+  ansible.builtin.get_url:
+    url: "https://github.com/neovim/neovim/releases/download/{{ versions.neovim }}/nvim.appimage"
+    dest: ~/.local/bin/nvim.appimage
+    mode: "0744"
+
 - name: Install rustup | download installer
   ansible.builtin.uri:
     url: https://sh.rustup.rs
