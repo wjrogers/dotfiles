@@ -1,0 +1,48 @@
+- name: Configure system
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Add Git PPA
+      ansible.builtin.apt_repository:
+        repo: ppa:git-core/ppa
+        state: present
+
+    - name: Add HashiCorp signing key
+      ansible.builtin.get_url:
+        url: https://apt.releases.hashicorp.com/gpg
+        dest: /etc/apt/keyrings/hashicorp.asc
+        mode: "0644"
+
+    - name: Add HashiCorp repository
+      ansible.builtin.apt_repository:
+        repo: deb [signed-by=/etc/apt/keyrings/hashicorp.asc] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
+        filename: hashicorp
+        state: present
+
+    - name: Install packages
+      ansible.builtin.apt:
+        name:
+          - build-essential
+          - exa
+          - git
+          - jq
+          - ripgrep
+          - terraform
+          - tig
+          - tmux
+        state: present
+        update_cache: true
+
+    - name: Install sharkdp/bat
+      ansible.builtin.include_tasks: github_release_deb.yaml
+      vars:
+        user: sharkdp
+        repo: bat
+        asset_pattern: 'bat_\d+\.\d+\.\d+_amd64.deb'
+
+    - name: Install sharkdp/fd
+      ansible.builtin.include_tasks: github_release_deb.yaml
+      vars:
+        user: sharkdp
+        repo: fd
+        asset_pattern: 'fd_\d+\.\d+\.\d+_amd64.deb'

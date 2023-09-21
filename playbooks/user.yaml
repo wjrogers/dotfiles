@@ -1,0 +1,46 @@
+- name: Configure user home directory
+  hosts: localhost
+  become: false
+  gather_facts: false
+  tasks:
+    - name: Install junegunn/fzf
+      block:
+        - name: Install junegunn/fzf | Clone
+          ansible.builtin.git:
+            repo: https://github.com/junegunn/fzf.git
+            dest: ~/.local/share/fzf
+            version: 0.42.0
+          register: fzf_git
+        - name: Install junegunn/fzf | Run install script
+          ansible.builtin.command: ~/.local/share/fzf/install --all --no-zsh --no-fish
+          changed_when: fzf_git.changed
+
+    - name: Link dotfiles | home
+      with_fileglob: "{{ inventory_dir }}/home/.*"
+      ansible.builtin.file:
+        path: "~/{{ item | basename }}"
+        src: "{{ item }}"
+        follow: false
+        state: link
+
+    - name: Link dotfiles | home/.config | find directories
+      ansible.builtin.find:
+        paths: "{{ inventory_dir }}/home/.config"
+        file_type: directory
+        recurse: false
+      register: dot_config
+
+    - name: Link dotfiles | home/.config
+      loop: "{{ dot_config.files }}"
+      ansible.builtin.file:
+        path: "~/.config/{{ item.path | basename }}"
+        src: "{{ item.path }}"
+        follow: false
+        state: link
+
+    - name: Link dotfiles | home/.vim
+      ansible.builtin.file:
+        path: "~/.vim"
+        src: "{{ inventory_dir }}/home/.vim"
+        follow: false
+        state: link

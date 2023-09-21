@@ -1,0 +1,15 @@
+- name: GitHub release (deb) {{ user + '/' + repo }}
+  block:
+    - name: GitHub release (deb) | Get release
+      ansible.builtin.uri:
+        url: https://api.github.com/repos/{{ user }}/{{ repo }}/releases/{{ release | default('latest') }}
+        return_content: true
+      register: github_release
+
+    - name: GitHub release (deb) | Find matching asset(s)
+      ansible.builtin.set_fact:
+        assets: "{{ github_release.json.assets | selectattr('name', 'search', asset_pattern) }}"
+
+    - name: GitHub release (deb) | Install
+      ansible.builtin.apt:
+        deb: "{{ assets | map(attribute='browser_download_url') | list | first }}"

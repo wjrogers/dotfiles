@@ -1,0 +1,4 @@
+{
+    "ansible.python.interpreterPath": "/bin/python3",
+    "editor.formatOnSave": true
+}

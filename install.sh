@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -euxo pipefail
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 # create standard directories
 mkdir -p ~/.config
 mkdir -p ~/.local/bin
@@ -9,10 +13,14 @@ chmod 755 ~/.config
 chmod 755 ~/.local ~/.local/*
 
 # pre-requisites
-sudo add-apt-repository -y --no-update ppa:git-core/ppa
 sudo apt update
-sudo apt install -y build-essential curl file git stow
+sudo apt install -y curl gnupg python3-venv pipx software-properties-common
 
-# configuration (explicit target in case ~/.dotfiles is a symlink)
-STOW_CMD="stow -v --target $HOME"
-$STOW_CMD home
+# install ansible
+python3 -m pipx ensurepath
+pipx install --include-deps ansible
+pipx inject --include-apps ansible ansible-lint
+
+# run
+ANSIBLE_CONFIG="${SCRIPT_DIR}/ansible.cfg" ansible-playbook -i "${SCRIPT_DIR}/inventory.yaml" "${SCRIPT_DIR}/playbooks/system.yaml"
+ANSIBLE_CONFIG="${SCRIPT_DIR}/ansible.cfg" ansible-playbook -i "${SCRIPT_DIR}/inventory.yaml" "${SCRIPT_DIR}/playbooks/user.yaml"
