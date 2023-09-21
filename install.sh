@@ -22,5 +22,4 @@ pipx install --include-deps ansible
 pipx inject --include-apps ansible ansible-lint
 
 # run
-ANSIBLE_CONFIG="${SCRIPT_DIR}/ansible.cfg" ansible-playbook -i "${SCRIPT_DIR}/inventory.yaml" "${SCRIPT_DIR}/playbooks/system.yaml"
-ANSIBLE_CONFIG="${SCRIPT_DIR}/ansible.cfg" ansible-playbook -i "${SCRIPT_DIR}/inventory.yaml" "${SCRIPT_DIR}/playbooks/user.yaml"
+ANSIBLE_CONFIG="${SCRIPT_DIR}/ansible.cfg" ansible-playbook -i "${SCRIPT_DIR}/inventory.yaml" "${SCRIPT_DIR}/playbook.yaml"

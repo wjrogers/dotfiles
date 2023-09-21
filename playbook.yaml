@@ -1,0 +1,12 @@
+- name: Configure system
+  hosts: localhost
+  become: true
+  tasks:
+    - ansible.builtin.import_tasks: tasks/system.yaml
+
+- name: Configure user home directory
+  hosts: localhost
+  become: false
+  gather_facts: false
+  tasks:
+    - ansible.builtin.import_tasks: tasks/user.yaml
