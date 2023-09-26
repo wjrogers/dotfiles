@@ -28,6 +28,24 @@
     follow: false
     state: link
 
+- name: Install Broot
+  ansible.builtin.get_url:
+    url: https://dystroy.org/broot/download/x86_64-linux/broot
+    dest: ~/.local/bin/broot
+    mode: "0744"
+
+- name: Install Broot | bash-completion (br)
+  ansible.builtin.get_url:
+    url: https://dystroy.org/broot/download/completion/br.bash
+    dest: ~/.local/share/bash-completion/completions/br.bash
+    mode: "0644"
+
+- name: Install Broot | bash-completion (broot)
+  ansible.builtin.get_url:
+    url: https://dystroy.org/broot/download/completion/broot.bash
+    dest: ~/.local/share/bash-completion/completions/broot.bash
+    mode: "0644"
+
 - name: Install junegunn/fzf
   block:
     - name: Install junegunn/fzf | Clone

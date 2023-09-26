@@ -7,6 +7,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 # create standard directories
 mkdir -p ~/.config
 mkdir -p ~/.local/bin
+mkdir -p ~/.local/share/bash-completion/completions
 
 # ensure permissions
 chmod 755 ~/.config
