@@ -66,8 +66,8 @@ alias rg='rg -S'
 alias tf='terraform'
 [ -x "$(command -v nvim.appimage)" ] && alias vim='nvim.appimage'
 
-# source custom local configuration
-[ -e ~/.bashrc.local ] && source ~/.bashrc.local
-
 # starship go
 [ -x "$(command -v starship)" ] && eval "$(starship init bash)"
+
+# source custom local configuration
+[ -e ~/.bashrc.local ] && source ~/.bashrc.local
