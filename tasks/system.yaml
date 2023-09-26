@@ -55,6 +55,13 @@
     state: present
     update_cache: true
 
+- name: Install PowerShell/PowerShell
+  ansible.builtin.import_tasks: github_release_deb.yaml
+  vars:
+    user: PowerShell
+    repo: PowerShell
+    asset_pattern: 'powershell_.*\.deb_amd64.deb'
+
 - name: Install sharkdp/bat
   ansible.builtin.import_tasks: github_release_deb.yaml
   vars:
