@@ -64,6 +64,15 @@
     dest: ~/.local/bin/nvim.appimage
     mode: "0744"
 
+- name: Install Neovim | symlink
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    src: "{{ item.src }}"
+    state: link
+  loop:
+    - { src: ~/.local/bin/nvim.appimage, path: ~/.local/bin/nvim }
+    - { src: ~/.local/bin/nvim.appimage, path: ~/.local/bin/vim }
+
 - name: Install rustup | download installer
   ansible.builtin.uri:
     url: https://sh.rustup.rs

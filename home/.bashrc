@@ -67,7 +67,6 @@ fi
 alias la='ls -a'
 alias rg='rg -S'
 alias tf='terraform'
-[ -x "$(command -v nvim.appimage)" ] && alias vim='nvim.appimage'
 
 # starship go
 [ -x "$(command -v starship)" ] && eval "$(starship init bash)"
