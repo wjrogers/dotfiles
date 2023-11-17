@@ -41,7 +41,6 @@
     name:
       - build-essential
       - cmake
-      - exa
       - git
       - helm
       - jq
