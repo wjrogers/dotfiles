@@ -50,7 +50,7 @@ foreach ($Service in $Services.Keys) {
 }
 "@
     } elseif ($ServiceObject -and $ServiceObject.StartType -ne $DesiredStartType) {
-    Start-Process powershell.exe -Verb RunAs -Wait -ArgumentList @"
+        Start-Process powershell.exe -Verb RunAs -Wait -ArgumentList @"
 -Command & {
     Set-Service $Service -StartupType $DesiredStartType
     Stop-Service $Service -PassThru | Format-List *
@@ -66,14 +66,16 @@ foreach ($Service in $Services.Keys) {
 # Symlinks
 $Links = @{
     "$Profile" = "$Base/powershell/Microsoft.PowerShell_profile.ps1"
+    "$Env:LOCALAPPDATA/Microsoft/Windows Terminal/Fragments/nord" = "$Base/terminal/nord"
+    "$Env:LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json" = "$Base/terminal/settings.json"
     "$Env:APPDATA/mintty/config" = "$Base/mintty/config"
     "$Env:APPDATA/wsltty/config" = "$Base/mintty/config"
     "$HOME/.gitconfig" = "$Base/home/.gitconfig"
     "$HOME/.gvimrc" = "$Base/home/.gvimrc"
     "$HOME/.vimrc" = "$Base/home/.vimrc"
     "$HOME/.vim" = "$Base/home/.vim"
-    "$HOME/vimfiles" = "$Base/home/.vim"
     "$HOME/.vsvimrc" = "$Base/vsvimrc"
+    "$HOME/vimfiles" = "$Base/home/.vim"
     "$Env:LOCALAPPDATA/nvim" = "$Base/home/.config/nvim"
 }
 foreach ($Source in $Links.Keys) {
