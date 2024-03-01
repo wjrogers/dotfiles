@@ -16,6 +16,6 @@ Remove-PSReadlineKeyHandler 'Ctrl+r'
 Import-Module PSFzf
 
 # zoxide
-if (Get-Command "zoxide" -ErrorAction SilentlyContinue) {
+if (Get-Command "zoxide" -ErrorAction Ignore) {
   Invoke-Expression ($(zoxide init --hook "pwd" powershell) -join "`n")
 }
