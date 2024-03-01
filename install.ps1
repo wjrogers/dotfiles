@@ -22,6 +22,9 @@ if (-not (Get-Command scoop)) {
     & scoop install @ScoopApps
 }
 
+# Bootstrap winget
+& winget install --id Microsoft.OpenSSH.Beta
+
 # Bootstrap this repository
 if (-not (Test-Path $Base)) {
     & git clone https://github.com/wjrogers/dotfiles.git "$Base"
@@ -29,18 +32,36 @@ if (-not (Test-Path $Base)) {
     & git -C "$Base" remote set-url origin git@github.com:wjrogers/dotfiles.git 
 }
 
-# Configure OpenSSH Agent
-$AgentService = Get-Service ssh-agent
-if ($AgentService -and $AgentService.StartType -ne 'Automatic') {
-    Start-Process powershell.exe -Verb RunAs -Wait -ArgumentList @"
+# Configure services
+$Services = @{
+    "ssh-agent" = "Disabled"
+    "sshd" = "Disabled"
+}
+foreach ($Service in $Services.Keys) {
+    $DesiredStartType = $Services[$Service]
+    
+    $ServiceObject = Get-Service $Service
+    if ($ServiceObject -and $ServiceObject.StartType -ne $DesiredStartType -and $DesiredStartType -eq "Automatic") {
+        Start-Process powershell.exe -Verb RunAs -Wait -ArgumentList @"
 -Command & {
-    Set-Service ssh-agent -StartupType Automatic
-    Start-Service ssh-agent -PassThru | Format-List *
+    Set-Service $Service -StartupType $DesiredStartType
+    Start-Service $Service -PassThru | Format-List *
     pause
 }
 "@
+    } elseif ($ServiceObject -and $ServiceObject.StartType -ne $DesiredStartType) {
+    Start-Process powershell.exe -Verb RunAs -Wait -ArgumentList @"
+-Command & {
+    Set-Service $Service -StartupType $DesiredStartType
+    Stop-Service $Service -PassThru | Format-List *
+    pause
 }
-$AgentService = $null
+"@
+    } elseif (-not $ServiceObject) {
+        Write-Error "Service '$Service' not found."
+    }
+    $ServiceObject = $null
+}
 
 # Symlinks
 $Links = @{
@@ -80,7 +101,7 @@ $Environment = @{
     "DOTFILES_HOME" = $Base
     "GITHUB_TOKEN" = $null
     "GITHUB_USER" = $null
-    "GIT_SSH" = $null # https://github.com/PowerShell/Win32-OpenSSH/issues/2012
+    "GIT_SSH" = "C:\Program Files\OpenSSH\ssh.exe"
     "HOME" = $null
     "HTML_TIDY" = (Resolve-Path "$Base/home/.tidyrc")
     "TERM" = $null
