@@ -104,6 +104,7 @@ $Environment = @{
     "GIT_SSH" = "C:\Program Files\OpenSSH\ssh.exe"
     "HOME" = $null
     "HTML_TIDY" = (Resolve-Path "$Base/home/.tidyrc")
+    "RIPGREP_CONFIG_PATH" = (Resolve-Path "$Base/home/.ripgreprc")
     "TERM" = $null
 }
 foreach ($Key in $Environment.Keys) {

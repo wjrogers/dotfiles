@@ -1,0 +1,4 @@
+--hidden
+--glob=!.git/
+--glob=!{package-lock.json,packages.lock.json}
+--smart-case
