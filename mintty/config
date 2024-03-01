@@ -1,8 +1,16 @@
 BoldAsFont=yes
-Font=Hack
+Font=JetBrains Mono Medium
 FontHeight=10
 Columns=120
 Rows=60
 Term=xterm-256color
 CursorType=block
 ThemeFile=nord
+WindowShortcuts=no
+SwitchShortcuts=no
+ZoomShortcuts=no
+FontWeight=500
+Locale=en_US
+Charset=UTF-8
+FontChoice=Private:3
+Font3=Symbols Nerd Font
