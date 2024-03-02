@@ -82,7 +82,7 @@ foreach ($Source in $Links.Keys) {
     $Target = Resolve-Path $Links[$Source]
     New-Item -Force -ItemType SymbolicLink -Path "$Source" -Target "$Target"
 
-    if ($LASTEXITCODE -ne 0) {
+    if (-not $?) {
         throw "Try enabling Developer Mode in Windows Settings."
     }
 }
