@@ -1,6 +1,7 @@
 - name: Configure system
   hosts: localhost
   become: true
+  diff: true
   tasks:
     - name: System
       ansible.builtin.import_tasks: tasks/system.yaml
@@ -8,6 +9,7 @@
 - name: Configure user home directory
   hosts: localhost
   become: false
+  diff: true
   gather_facts: false
   vars:
     versions:

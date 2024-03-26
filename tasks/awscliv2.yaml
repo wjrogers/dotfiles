@@ -11,6 +11,7 @@
     remote_src: true
     creates: '{{ awscliv2_temp_dir.path }}/aws'
     mode: 0755
+  diff: false
 
 - name: awscliv2 | Run installer
   ansible.builtin.command:
@@ -30,3 +31,4 @@
     path: "{{ awscliv2_temp_dir.path }}"
     state: absent
   when: awscliv2_temp_dir.path is defined
+  diff: false
