@@ -44,7 +44,6 @@
       - git
       - helm
       - jq
-      - keychain
       - kubectl
       - libfuse2
       - ripgrep
