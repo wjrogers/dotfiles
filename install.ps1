@@ -92,8 +92,8 @@ $SystemPathBlocklist = @(
     "$($Env:SystemRoot)\System32\OpenSSH"
 )
 $SystemPath = [System.Environment]::GetEnvironmentVariable("PATH", "Machine").Split(";")
-$SystemPathModified = $SystemPath | where { $SystemPathBlocklist -notcontains $_ }
-$SystemPathItemsRemoved = $SystemPath | where { $SystemPathModified -notcontains $_ }
+$SystemPathModified = $SystemPath | Where-Object { $SystemPathBlocklist -notcontains $_ }
+$SystemPathItemsRemoved = $SystemPath | Where-Object { $SystemPathModified -notcontains $_ }
 foreach ($item in $SystemPathItemsRemoved) {
     Write-Host "Please remove '$item' from the system PATH!"
 }

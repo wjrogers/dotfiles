@@ -1,4 +1,7 @@
 {
     "ansible.python.interpreterPath": "/bin/python3",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "[powershell]": {
+        "editor.formatOnSave": false
+    }
 }
