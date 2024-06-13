@@ -99,5 +99,6 @@
             }
         ]
     },
-    "themes": []
+    "themes": [],
+    "windowingBehavior": "useExisting"
 }
