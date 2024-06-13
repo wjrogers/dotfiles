@@ -17,5 +17,5 @@ Import-Module PSFzf
 
 # zoxide
 if (Get-Command "zoxide" -ErrorAction Ignore) {
-  Invoke-Expression ($(zoxide init --hook "pwd" powershell) -join "`n")
+  Invoke-Expression (& { (zoxide init powershell | Out-String) })
 }
