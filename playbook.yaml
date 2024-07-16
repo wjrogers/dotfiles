@@ -13,7 +13,7 @@
   gather_facts: false
   vars:
     versions:
-      neovim: v0.9.5
+      neovim: v0.10.0
   tasks:
     - name: User
       ansible.builtin.import_tasks: tasks/user.yaml
