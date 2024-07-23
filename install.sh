@@ -15,12 +15,15 @@ chmod 755 ~/.local ~/.local/*
 
 # pre-requisites
 sudo apt update
-sudo apt install -y curl gnupg python3-venv pipx software-properties-common
+sudo apt install -y curl gnupg python3-pip python3-venv software-properties-common
+
+# bootstrap pip from GitHub
+PIPX=$(readlink -f ~/.local/bin/pipx)
+curl -fSL# -o "$PIPX" https://github.com/pypa/pipx/releases/download/1.6.0/pipx.pyz && chmod +x "$PIPX"
 
 # install ansible
-python3 -m pipx ensurepath
-pipx install --include-deps ansible
-pipx inject --include-apps ansible ansible-lint
+"$PIPX" install --include-deps 'ansible>=9,<10'
+"$PIPX" inject --include-apps ansible 'ansible-lint>=24,<25'
 
 # run
 ANSIBLE_CONFIG="${SCRIPT_DIR}/ansible.cfg" ansible-playbook -i "${SCRIPT_DIR}/inventory.yaml" "${SCRIPT_DIR}/playbook.yaml"
