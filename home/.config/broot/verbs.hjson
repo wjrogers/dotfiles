@@ -27,7 +27,7 @@ verbs: [
     {
         invocation: edit
         shortcut: e
-        key: ctrl-e
+        key: enter
         apply_to: text_file
         execution: "$EDITOR +{line} {file}"
         leave_broot: false
