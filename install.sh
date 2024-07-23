@@ -22,7 +22,7 @@ PIPX=$(readlink -f ~/.local/bin/pipx)
 curl -fSL# -o "$PIPX" https://github.com/pypa/pipx/releases/download/1.6.0/pipx.pyz && chmod +x "$PIPX"
 
 # install ansible
-"$PIPX" install --include-deps 'ansible>=9,<10'
+"$PIPX" install --include-deps 'ansible>=10,<11'
 "$PIPX" inject --include-apps ansible 'ansible-lint>=24,<25'
 
 # run
