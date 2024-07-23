@@ -6,18 +6,15 @@
     follow: false
     state: link
 
-- name: Link dotfiles | home/.config | find directories
-  ansible.builtin.find:
-    paths: "{{ inventory_dir }}/home/.config"
-    file_type: directory
-    recurse: false
-  register: dot_config
-
 - name: Link dotfiles | home/.config
-  loop: "{{ dot_config.files }}"
+  loop:
+    - "{{ inventory_dir }}/home/.config/broot/verbs.hjson"
+    - "{{ inventory_dir }}/home/.config/ctags"
+    - "{{ inventory_dir }}/home/.config/lsd"
+    - "{{ inventory_dir }}/home/.config/nvim"
   ansible.builtin.file:
-    path: "~/.config/{{ item.path | basename }}"
-    src: "{{ item.path }}"
+    path: "~/.config/{{ item | ansible.builtin.relpath(inventory_dir + '/home/.config') }}"
+    src: "{{ item }}"
     follow: false
     state: link
 
