@@ -2,6 +2,9 @@
   hosts: localhost
   become: true
   diff: true
+  module_defaults:
+    ansible.builtin.setup:
+      gather_subset: "!hardware"
   tasks:
     - name: System
       ansible.builtin.import_tasks: tasks/system.yaml
@@ -14,6 +17,9 @@
   vars:
     versions:
       neovim: v0.10.0
+  module_defaults:
+    ansible.builtin.setup:
+      gather_subset: "!hardware"
   tasks:
     - name: User
       ansible.builtin.import_tasks: tasks/user.yaml
