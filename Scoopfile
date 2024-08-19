@@ -1,13 +1,9 @@
-7zip
 bat
 curl
 dasel
 fd
 fzf
-git
-innounp
 jq
-lua-for-windows
 ripgrep
 tidy
 vim
