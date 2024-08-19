@@ -43,6 +43,14 @@
     dest: ~/.local/share/bash-completion/completions/broot.bash
     mode: "0644"
 
+- name: Install dasel
+  ansible.builtin.import_tasks: github_release_binary.yaml
+  vars:
+    user: TomWright
+    repo: dasel
+    asset_pattern: "dasel_linux_amd64"
+    dest: ~/.local/bin/dasel
+
 - name: Install junegunn/fzf
   block:
     - name: Install junegunn/fzf | Clone
