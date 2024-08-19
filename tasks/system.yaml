@@ -54,9 +54,6 @@
     state: present
     update_cache: true
 
-- name: Install AWS CLI v2
-  ansible.builtin.import_tasks: awscliv2.yaml
-
 - name: Install GitHub CLI
   ansible.builtin.import_tasks: github_release_deb.yaml
   vars:

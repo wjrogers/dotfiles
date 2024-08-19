@@ -25,6 +25,9 @@
     follow: false
     state: link
 
+- name: Install AWS CLI v2
+  ansible.builtin.import_tasks: awscliv2.yaml
+
 - name: Install Broot
   ansible.builtin.get_url:
     url: https://dystroy.org/broot/download/x86_64-linux/broot

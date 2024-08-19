@@ -1,34 +1,33 @@
-- name: awscliv2 | Create temporary directory
-  ansible.builtin.tempfile:
+- name: awscliv2 | Create directories
+  ansible.builtin.file:
+    path: "{{ item }}"
     state: directory
-  register: awscliv2_temp_dir
+  loop:
+    - "~/.cache/dotfiles/awscliv2"
+    - "~/.cache/dotfiles/downloads"
+    - "~/.local/share/aws-cli"
 
 # https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 - name: awscliv2 | Download installer
+  ansible.builtin.get_url:
+    url: "https://awscli.amazonaws.com/awscli-exe-linux-{{ ansible_architecture }}.zip"
+    dest: "~/.cache/dotfiles/downloads/"
+  register: awscliv2_download
+
+- name: awscliv2 | Extract installer
   ansible.builtin.unarchive:
-    src: "https://awscli.amazonaws.com/awscli-exe-linux-{{ ansible_architecture }}.zip"
-    dest: "{{ awscliv2_temp_dir.path }}"
-    remote_src: true
-    creates: "{{ awscliv2_temp_dir.path }}/aws"
-    mode: "0755"
-  diff: false
+    src: "{{ awscliv2_download.dest }}"
+    dest: "~/.cache/dotfiles/awscliv2"
+  register: awscliv2_extract
 
 - name: awscliv2 | Run installer
   ansible.builtin.command:
   args:
-    cmd: "{{ awscliv2_temp_dir.path }}/aws/install"
-    creates: /usr/local/bin/aws
-  become: true
+    cmd: "{{ awscliv2_extract.dest }}/aws/install -i ~/.local/share/aws-cli -b ~/.local/bin --update"
+  when: awscliv2_extract.changed
   register: awscliv2_install
 
 - name: awscliv2 | Show installer output
   ansible.builtin.debug:
     var: awscliv2_install
     verbosity: 2
-
-- name: awscliv2 | Remove temporary directory
-  ansible.builtin.file:
-    path: "{{ awscliv2_temp_dir.path }}"
-    state: absent
-  when: awscliv2_temp_dir.path is defined
-  diff: false
