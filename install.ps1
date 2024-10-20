@@ -23,7 +23,7 @@ if (-not (Get-Command scoop)) {
 }
 
 # Bootstrap winget
-& winget install --id Microsoft.OpenSSH.Beta
+& winget install --id Microsoft.OpenSSH.Preview
 
 # Bootstrap this repository
 if (-not (Test-Path $Base)) {
