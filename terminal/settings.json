@@ -4,17 +4,19 @@
     "actions": 
     [
         {
+            "command": "find",
+            "id": "User.find",
+            "keys": "ctrl+shift+f"
+        },
+        {
             "command": 
             {
                 "action": "splitPane",
                 "split": "auto",
                 "splitMode": "duplicate"
             },
+            "id": "User.splitPane.A6751878",
             "keys": "alt+shift+d"
-        },
-        {
-            "command": "find",
-            "keys": "ctrl+shift+f"
         }
     ],
     "copyFormatting": "none",
@@ -22,7 +24,6 @@
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
     "initialCols": 120,
     "initialRows": 60,
-    "snapToGridOnResize": true,
     "newTabMenu": 
     [
         {
@@ -37,13 +38,12 @@
             "font": 
             {
                 "face": "JetBrains Mono",
-                "size": 10.0,
+                "size": 10,
                 "weight": "medium"
             },
             "intenseTextStyle": "all",
             "padding": "2, 1",
-            "scrollbarState": "always",
-            "useAtlasEngine": true
+            "scrollbarState": "always"
         },
         "list": 
         [
@@ -99,6 +99,8 @@
             }
         ]
     },
+    "schemes": [],
+    "snapToGridOnResize": true,
     "themes": [],
     "windowingBehavior": "useExisting"
 }
