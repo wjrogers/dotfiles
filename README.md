@@ -8,43 +8,31 @@
 
 1. Install [Windows Terminal](https://aka.ms/windowsterminal) from the Microsoft Store.
 
+1. Install [JetBrains Mono](https://www.jetbrains.com/lp/mono/) and any other desired fonts (e.g. Hack, Fira Code).
+
 1. Open Windows Terminal and execute the install script from this repository.
 
     ```powershell
     Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/wjrogers/dotfiles/master/install.ps1')
     ```
 
-1. Add a key to the agent (note: you only have to do this _once_; Windows saves it in the hopefully-secure Windows Credential Manager -- yet another reason to lock your workstation)
-
-    ```powershell
-    ssh-add <path-to-private-key>
-    ```
+> **NOTE:** The current version of these scripts *disables* the sshd and ssh-agent services. The author is using 1Password's integrated SSH Agent.
 
 ## Windows Subsystem for Linux
 
-[Install Windows Subsystem for Linux (WSL) on Windows 10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+[How to install Linux on Windows with WSL](https://learn.microsoft.com/en-us/windows/wsl/install)
 
-1. In an elevated PowerShell, enable the feature
+1. In an elevated PowerShell, run the installation command:
 
     ```powershell
-    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+    wsl --install
     ```
 
-1. Reboot when prompted
-1. Install [Ubuntu](https://www.microsoft.com/store/p/ubuntu/9nblggh4msv6) from the Microsoft Store
-1. Install [wsltty](https://github.com/mintty/wsltty)
-1. (Optional) Install preferred fonts e.g. Deja Vu, Fira Code, Hack
+> **NOTE:** In recent Windows versions, this command is a one-stop shop that installs the latest WSL and Ubuntu. Use the included Windows Terminal profile; it's better than wsltty now.
 
 ## Linux
 
-1. (WSL v1) Make a symlink to the repository cloned in your Windows user profile
-
-    ```sh
-    ln -s /mnt/c/Users/will/dotfiles/ ~/.dotfiles
-    cd ~/.dotfiles
-    ```
-
-1. (Linux) Clone this repository
+1. Clone this repository
 
     ```sh
     git clone https://github.com/wjrogers/dotfiles.git ~/.dotfiles
