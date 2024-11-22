@@ -91,10 +91,9 @@
             },
             {
                 "colorScheme": "Nord",
-                "experimental.connection.passthroughMode": true,
-                "guid": "{e5a83caa-4c73-52b3-ae6b-bc438d721ef9}",
+                "guid": "{4ff56d04-d9cf-57ea-bae2-ad396374e7e3}",
                 "hidden": false,
-                "name": "Ubuntu 22.04.3 LTS",
+                "name": "Ubuntu 22.04.5 LTS",
                 "source": "CanonicalGroupLimited.Ubuntu22.04LTS_79rhkp1fndgsc"
             }
         ]
