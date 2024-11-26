@@ -27,13 +27,13 @@
 
 - name: Add Kubernetes signing key
   ansible.builtin.get_url:
-    url: https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key
+    url: https://pkgs.k8s.io/core:/stable:/{{ versions.kubectl }}/deb/Release.key
     dest: /etc/apt/keyrings/kubernetes.asc
     mode: "0644"
 
 - name: Add Kubernetes repository
   ansible.builtin.apt_repository:
-    repo: deb [signed-by=/etc/apt/keyrings/kubernetes.asc] https://pkgs.k8s.io/core:/stable:/v1.25/deb/ /
+    repo: deb [signed-by=/etc/apt/keyrings/kubernetes.asc] https://pkgs.k8s.io/core:/stable:/{{ versions.kubectl }}/deb/ /
     filename: kubernetes
 
 - name: Install packages
