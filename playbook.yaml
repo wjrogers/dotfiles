@@ -19,7 +19,7 @@
   gather_facts: false
   vars:
     versions:
-      neovim: v0.10.0
+      neovim: v0.10.2
   module_defaults:
     ansible.builtin.setup:
       gather_subset: "!hardware"
