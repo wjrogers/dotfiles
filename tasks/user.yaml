@@ -26,7 +26,8 @@
     state: link
 
 - name: Install AWS CLI v2
-  ansible.builtin.import_tasks: awscliv2.yaml
+  ansible.builtin.include_role:
+    name: awscliv2
 
 - name: Install Broot
   ansible.builtin.get_url:

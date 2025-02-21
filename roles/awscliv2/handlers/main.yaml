@@ -1,0 +1,41 @@
+- name: Set paths
+  listen: awscliv2_install
+  ansible.builtin.set_fact:
+    awscliv2_extract_path: "~/.cache/dotfiles/awscliv2"
+    awscliv2_install_path: "~/.local/share/aws-cli"
+
+- name: Clean extraction directory
+  listen: awscliv2_install
+  ansible.builtin.file:
+    path: "{{ awscliv2_extract_path }}"
+    state: absent
+
+- name: Create directories
+  listen: awscliv2_install
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - "{{ awscliv2_extract_path }}"
+    - "{{ awscliv2_install_path }}"
+
+- name: Extract installer
+  listen: awscliv2_install
+  ansible.builtin.unarchive:
+    src: "{{ awscliv2_download.dest }}"
+    dest: "{{ awscliv2_extract_path }}"
+
+- name: Run installer
+  listen: awscliv2_install
+  ansible.builtin.command:
+  args:
+    cmd: "{{ awscliv2_extract_path }}/aws/install -i {{ awscliv2_install_path }} -b ~/.local/bin --update"
+  register: awscliv2_install_output
+  changed_when: true
+
+- name: Show installer output
+  listen: awscliv2_install
+  ansible.builtin.debug:
+    var: awscliv2_install_output
+    verbosity: 2

@@ -1,0 +1,16 @@
+- name: Create downloads directory
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - "~/.cache/dotfiles/downloads"
+
+# https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+- name: Download installer
+  ansible.builtin.get_url:
+    url: "https://awscli.amazonaws.com/awscli-exe-linux-{{ ansible_architecture }}.zip"
+    dest: "~/.cache/dotfiles/downloads/"
+    mode: "0644"
+  register: awscliv2_download
+  notify: awscliv2_install
