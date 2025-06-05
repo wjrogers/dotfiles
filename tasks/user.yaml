@@ -1,3 +1,10 @@
+- name: Create directories
+  loop:
+    - "~/.config/broot"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+
 - name: Link dotfiles | home
   with_fileglob: "{{ inventory_dir }}/home/.*"
   ansible.builtin.file:
