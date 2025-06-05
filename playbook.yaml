@@ -20,6 +20,8 @@
   vars:
     versions:
       neovim: v0.10.2
+  environment:
+    PATH: "~/.local/bin:{{ ansible_env.PATH }}"
   module_defaults:
     ansible.builtin.setup:
       gather_subset: "!hardware"
