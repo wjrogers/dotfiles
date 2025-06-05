@@ -1,16 +1,16 @@
 - name: GitHub release (binary) {{ user + '/' + repo }}
   block:
-    - name: GitHub release (binary) | Get release
+    - name: GitHub release (binary) {{ user + '/' + repo }} | Get release
       ansible.builtin.uri:
         url: https://api.github.com/repos/{{ user }}/{{ repo }}/releases/{{ release | default('latest') }}
         return_content: true
       register: github_release
 
-    - name: GitHub release (binary) | Find matching asset
+    - name: GitHub release (binary) {{ user + '/' + repo }} | Find matching asset
       ansible.builtin.set_fact:
         asset: "{{ github_release.json.assets | selectattr('name', 'search', asset_pattern) | first }}"
 
-    - name: GitHub release (binary) | Install
+    - name: GitHub release (binary) {{ user + '/' + repo }} | Install
       ansible.builtin.get_url:
         url: "{{ asset.browser_download_url }}"
         dest: "{{ dest | default('~/.local/bin/' + asset.name) }}"
