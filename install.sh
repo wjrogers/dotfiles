@@ -24,6 +24,7 @@ curl -fSL# -o "$PIPX" https://github.com/pypa/pipx/releases/download/1.6.0/pipx.
 # install ansible
 "$PIPX" install --include-deps 'ansible>=10,<11'
 "$PIPX" inject --include-apps ansible 'ansible-lint>=24,<25'
+"$PIPX" runpip ansible install python-debian # required by deb822_repository module
 
 # run
 ANSIBLE_CONFIG="${SCRIPT_DIR}/ansible.cfg" ansible-playbook -i "${SCRIPT_DIR}/inventory.yaml" "${SCRIPT_DIR}/playbook.yaml"

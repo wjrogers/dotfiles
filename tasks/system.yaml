@@ -1,7 +1,10 @@
 - name: Add Git PPA
-  ansible.builtin.apt_repository:
-    repo: ppa:git-core/ppa
-    state: present
+  ansible.builtin.deb822_repository:
+    name: git-core
+    uris: https://ppa.launchpadcontent.net/git-core/ppa/ubuntu
+    suites: '{{ ansible_distribution_release }}'
+    components: main
+    signed_by: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf911ab184317630c59970973e363c90f8f1b6217
 
 - name: Add Balto Helm signing key
   ansible.builtin.get_url:
