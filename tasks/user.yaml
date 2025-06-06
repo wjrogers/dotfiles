@@ -68,7 +68,8 @@
       ansible.builtin.git:
         repo: https://github.com/junegunn/fzf.git
         dest: ~/.local/share/fzf
-        version: 0.42.0
+        version: "{{ versions.fzf | default('master') }}"
+      diff: false
       register: fzf_git
     - name: Install junegunn/fzf | Run install script
       ansible.builtin.command: ~/.local/share/fzf/install --all --no-zsh --no-fish
