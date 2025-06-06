@@ -24,7 +24,7 @@ sudo apt install -y curl gnupg python3-pip python3-venv software-properties-comm
 
 # bootstrap pip from GitHub
 PIPX=$(readlink -f ~/.local/bin/pipx)
-curl -fSL# -o "$PIPX" https://github.com/pypa/pipx/releases/download/1.7.1/pipx.pyz && chmod +x "$PIPX"
+curl -fSL# -z "$PIPX" -o "$PIPX" https://github.com/pypa/pipx/releases/download/1.7.1/pipx.pyz && chmod +x "$PIPX"
 
 # install ansible
 "$PIPX" install --include-deps 'ansible>=10,<11'
