@@ -13,6 +13,11 @@ mkdir -p ~/.local/share/bash-completion/completions
 chmod 755 ~/.config
 chmod 755 ~/.local ~/.local/*
 
+# ensure ~/.local/bin is in PATH
+if [[ ! ":$PATH:" == *":$HOME/.local/bin:"* ]]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
 # pre-requisites
 sudo apt update
 sudo apt install -y curl gnupg python3-pip python3-venv software-properties-common
