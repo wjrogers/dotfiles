@@ -42,11 +42,6 @@ PS1='\[\e[0m\]\n\[\e[1;32m\]\w \[\e[1;37m\]$ \[\e[0m\]'
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-# zoxide
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-
 # completions
 if command -v aws_completer > /dev/null; then
   complete -C aws_completer aws
@@ -66,6 +61,11 @@ alias tf='terraform'
 
 # starship go
 [ -x "$(command -v starship)" ] && eval "$(starship init bash)"
+
+# zoxide - wants to run last so nothing overrides it
+if command -v zoxide > /dev/null; then
+  eval "$(zoxide init bash)"
+fi
 
 # source custom local configuration
 [ -e ~/.bashrc.local ] && source ~/.bashrc.local
