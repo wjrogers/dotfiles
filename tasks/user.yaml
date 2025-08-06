@@ -19,6 +19,7 @@
     - "{{ inventory_dir }}/home/.config/ctags"
     - "{{ inventory_dir }}/home/.config/lsd"
     - "{{ inventory_dir }}/home/.config/nvim"
+    - "{{ inventory_dir }}/home/.config/systemd"
   ansible.builtin.file:
     path: "~/.config/{{ item | ansible.builtin.relpath(inventory_dir + '/home/.config') }}"
     src: "{{ item }}"

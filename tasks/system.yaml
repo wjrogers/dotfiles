@@ -81,6 +81,7 @@
       - kubectl
       - libfuse2
       - ripgrep
+      - socat
       - terraform
       - tig
       - tmux
