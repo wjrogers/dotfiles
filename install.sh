@@ -26,9 +26,10 @@ sudo apt install -y curl gnupg python3-pip python3-venv software-properties-comm
 # bootstrap uv from GitHub
 "${SCRIPT_DIR}/install-uv.sh"
 
-# install ansible
+# install python tools
 UV=$(readlink -f ~/.local/bin/uv)
 "$UV" tool install --with-executables-from ansible-core,ansible-lint --with python-debian 'ansible>=11,<12'
+"$UV" tool install -U 'ruff'
 
 # run
 ANSIBLE_CONFIG="${SCRIPT_DIR}/ansible.cfg" ansible-playbook -i "${SCRIPT_DIR}/inventory.yaml" "${SCRIPT_DIR}/playbook.yaml"
