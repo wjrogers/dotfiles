@@ -38,4 +38,5 @@ later(function() require('mini.extra').setup() end)
 later(function() require('mini.pick').setup() end)
 
 -- late
+require('keymaps')
 require('completion')
