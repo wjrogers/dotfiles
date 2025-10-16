@@ -1,3 +1,4 @@
+--@type vim.lsp.Config
 return {
   on_attach = function(client, buf_id)
     -- reduce very long list of triggers for better 'mini.completion' experience
