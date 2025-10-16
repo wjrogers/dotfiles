@@ -43,6 +43,7 @@ vim.o.guifont = 'Consolas:h12'
 
 -- plugins!
 vim.pack.add({
+  "https://github.com/neovim/nvim-lspconfig",
   "https://github.com/nvim-mini/mini.nvim",
 })
 
@@ -93,3 +94,6 @@ later(function()
   -- advertise mini.completion capabilities to LSP servers
   vim.lsp.config('*', { capabilities = MiniCompletion.get_lsp_capabilities() })
 end)
+
+-- lsp
+vim.lsp.enable("lua_ls")

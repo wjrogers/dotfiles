@@ -3,6 +3,10 @@
     "mini.nvim": {
       "rev": "89eecd8",
       "src": "https://github.com/nvim-mini/mini.nvim"
+    },
+    "nvim-lspconfig": {
+      "rev": "ac98db2",
+      "src": "https://github.com/neovim/nvim-lspconfig"
     }
   }
 }
