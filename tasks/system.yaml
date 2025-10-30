@@ -37,16 +37,27 @@
       =uGON
       -----END PGP PUBLIC KEY BLOCK-----
 
-- name: Add Balto Helm signing key
-  ansible.builtin.get_url:
-    url: https://baltocdn.com/helm/signing.asc
-    dest: /etc/apt/keyrings/balto_helm.asc
-    mode: "0644"
-
-- name: Add Balto Helm repository
+# the Helm repository hosted at baltocdn.com is gone
+- name: Remove old Balto Helm signing key
+  ansible.builtin.file:
+    path: /etc/apt/keyrings/balto_helm.asc
+    state: absent
+- name: Remove old Balto Helm repository
   ansible.builtin.apt_repository:
     repo: deb [signed-by=/etc/apt/keyrings/balto_helm.asc] https://baltocdn.com/helm/stable/debian/ all main
     filename: balto_helm
+    state: absent
+
+- name: Add Buildkite Helm signing key
+  ansible.builtin.get_url:
+    url: https://packages.buildkite.com/helm-linux/helm-debian/gpgkey
+    dest: /etc/apt/keyrings/helm.asc
+    mode: "0644"
+
+- name: Add Buildkite Helm repository
+  ansible.builtin.apt_repository:
+    repo: deb [signed-by=/etc/apt/keyrings/helm.asc] https://packages.buildkite.com/helm-linux/helm-debian/any/ any main
+    filename: helm
 
 - name: Add HashiCorp signing key
   ansible.builtin.get_url:
