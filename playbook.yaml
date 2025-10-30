@@ -4,7 +4,7 @@
   diff: true
   vars:
     versions:
-      kubectl: v1.29
+      kubectl: v1.31
   module_defaults:
     ansible.builtin.setup:
       gather_subset: "!hardware"
