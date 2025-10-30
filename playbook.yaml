@@ -20,7 +20,7 @@
   vars:
     versions:
       fzf: v0.66.1
-      neovim: v0.10.2
+      neovim: nightly
   module_defaults:
     ansible.builtin.setup:
       gather_subset: "!hardware"
