@@ -4,7 +4,7 @@
   diff: true
   vars:
     versions:
-      kubectl: v1.31
+      kubectl: v1.32
   module_defaults:
     ansible.builtin.setup:
       gather_subset: "!hardware"
@@ -19,7 +19,7 @@
   gather_facts: false
   vars:
     versions:
-      fzf: v0.66.1
+      fzf: v0.67.0
       neovim: nightly
   module_defaults:
     ansible.builtin.setup:
