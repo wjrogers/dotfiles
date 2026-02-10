@@ -70,6 +70,7 @@ $Links = @{
     "$Env:LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json" = "$Base/terminal/settings.json"
     "$Env:APPDATA/mintty/config" = "$Base/mintty/config"
     "$Env:APPDATA/wsltty/config" = "$Base/mintty/config"
+    "$HOME/.claude/settings.json" = "$Base/claude/settings.json"
     "$HOME/.gitconfig" = "$Base/home/.gitconfig"
     "$HOME/.gvimrc" = "$Base/home/.gvimrc"
     "$HOME/.vimrc" = "$Base/home/.vimrc"
