@@ -9,11 +9,12 @@ Function Prompt {
 
 # environment
 $Env:FZF_DEFAULT_COMMAND = 'fd --type file --color=always --follow --hidden --exclude .git'
-$Env:FZF_DEFAULT_OPTS = '--ansi --layout=reverse --height 40%'
+$Env:FZF_DEFAULT_OPTS = '--ansi'
+$Env:FZF_CTRL_T_COMMAND = $Env:FZF_DEFAULT_COMMAND
 
 # PSFzf
-Remove-PSReadlineKeyHandler 'Ctrl+r'
 Import-Module PSFzf
+Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 
 # zoxide
 if (Get-Command "zoxide" -ErrorAction Ignore) {
