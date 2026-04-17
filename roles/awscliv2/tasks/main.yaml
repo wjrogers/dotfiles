@@ -9,7 +9,7 @@
 # https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 - name: Download installer
   ansible.builtin.get_url:
-    url: "https://awscli.amazonaws.com/awscli-exe-linux-{{ ansible_architecture }}.zip"
+    url: "https://awscli.amazonaws.com/awscli-exe-linux-{{ ansible_facts['architecture'] }}.zip"
     dest: "~/.cache/dotfiles/downloads/"
     mode: "0644"
   register: awscliv2_download

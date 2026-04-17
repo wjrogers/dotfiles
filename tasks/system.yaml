@@ -2,7 +2,7 @@
   ansible.builtin.deb822_repository:
     name: git-core
     uris: https://ppa.launchpadcontent.net/git-core/ppa/ubuntu
-    suites: '{{ ansible_distribution_release }}'
+    suites: '{{ ansible_facts["distribution_release"] }}'
     components: main
     signed_by: |-
       -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -67,7 +67,7 @@
 
 - name: Add HashiCorp repository
   ansible.builtin.apt_repository:
-    repo: deb [signed-by=/etc/apt/keyrings/hashicorp.asc] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
+    repo: deb [signed-by=/etc/apt/keyrings/hashicorp.asc] https://apt.releases.hashicorp.com {{ ansible_facts["distribution_release"] }} main
     filename: hashicorp
 
 - name: Add Kubernetes signing key
