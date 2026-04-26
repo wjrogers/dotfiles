@@ -40,4 +40,5 @@ later(function() require('mini.pick').setup() end)
 
 -- late
 require('keymaps')
+require('clue')
 require('completion')
