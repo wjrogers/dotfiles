@@ -35,6 +35,7 @@ now(function() require('mini.tabline').setup() end)
 -- mini: later
 later(function() require('mini.bracketed').setup() end)
 later(function() require('mini.extra').setup() end)
+later(function() require('mini.git').setup() end)
 later(function() require('mini.pick').setup() end)
 
 -- late

@@ -17,3 +17,5 @@ nmap_leader('fs', '<Cmd>Pick lsp scope="document_symbol"<CR>', 'Symbols (buffer)
 nmap_leader('fS', '<Cmd>Pick lsp scope="workspace_symbol"<CR>', 'Symbols (workspace)')
 nmap_leader('fz', '<Cmd>Pick resume<CR>', 'Resume')
 
+-- leader: g is for git?
+nmap_leader('gs', '<Cmd>lua MiniGit.show_at_cursor()<CR>', 'Show at cursor')
