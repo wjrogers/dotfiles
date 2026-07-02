@@ -19,7 +19,7 @@
   gather_facts: false
   vars:
     versions:
-      fzf: v0.67.0
+      fzf: v0.73.1
       neovim: stable
   module_defaults:
     ansible.builtin.setup:
