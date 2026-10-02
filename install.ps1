@@ -25,6 +25,9 @@ if (-not (Test-Path $Base)) {
     & git -C "$Base" remote set-url origin git@github.com:wjrogers/dotfiles.git 
 }
 
+# Install other stuff?
+& curl.exe -fsSL -o "$HOME/.local/bin/dasel.exe" "https://github.com/TomWright/dasel/releases/download/v3.11.2/dasel_windows_amd64.exe"
+
 # Configure services
 $Services = @{
     "ssh-agent" = "Disabled"
