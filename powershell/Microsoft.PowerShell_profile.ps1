@@ -23,3 +23,6 @@ Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory
 if (Get-Command "zoxide" -ErrorAction Ignore) {
   Invoke-Expression (& { (zoxide init powershell | Out-String) })
 }
+
+# Aliases
+Set-Alias -Name vim -Value nvim
