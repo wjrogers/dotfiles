@@ -9,21 +9,14 @@ if ($PSEdition -ne 'Core') {
 Write-Host "Installing dotfiles to $Base ..."
 Write-Host
 
-# Bootstrap scoop
-if (-not (Get-Command scoop)) {
-    Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
-    & scoop install git
-
-    # Install scoop apps
-    $ScoopApps = Get-Content "$Base/Scoopfile"
-    & scoop bucket add extras
-    & scoop bucket add java
-    & scoop bucket add versions
-    & scoop install @ScoopApps
-}
-
 # Bootstrap winget
+& winget install --id BurntSushi.ripgrep.MSVC
+& winget install --id Git.Git
 & winget install --id Microsoft.OpenSSH.Preview
+& winget install --id Neovim.Neovim
+& winget install --id junegunn.fzf
+& winget install --id sharkdp.bat
+& winget install --id sharkdp.fd
 
 # Bootstrap this repository
 if (-not (Test-Path $Base)) {
