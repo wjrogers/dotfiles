@@ -95,18 +95,18 @@ foreach ($item in $SystemPathItemsRemoved) {
 # Environment (nulls delete old stuff if it's still around)
 $Environment = @{
     "DOTFILES_HOME" = $Base
-    "GITHUB_TOKEN" = $null
-    "GITHUB_USER" = $null
+    "GITHUB_TOKEN" = [NullString]::Value
+    "GITHUB_USER" = [NullString]::Value
     "GIT_SSH" = "C:\Program Files\OpenSSH\ssh.exe"
-    "HOME" = $null
+    "HOME" = [NullString]::Value
     "HTML_TIDY" = (Resolve-Path "$Base/home/.tidyrc")
     "RIPGREP_CONFIG_PATH" = (Resolve-Path "$Base/home/.ripgreprc")
-    "TERM" = $null
+    "TERM" = [NullString]::Value
 }
 foreach ($Key in $Environment.Keys) {
     $Value = $Environment[$Key]
     [System.Environment]::SetEnvironmentVariable($Key, $Value, "User")
-    Set-Item "Env:$Key" "$Value"
+    Set-Item "Env:$Key" $Value
 }
 
 # Modules
